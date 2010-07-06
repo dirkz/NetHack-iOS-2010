@@ -1291,6 +1291,9 @@ const char *filename;
 int whichprefix;
 int retryct;
 {
+#if TARGET_OS_IPHONE
+	return TRUE;
+#endif
 #if (defined(macintosh) && (defined(__SC__) || defined(__MRC__))) || defined(__MWERKS__)
 # pragma unused(filename, retryct)
 #endif
@@ -1414,6 +1417,9 @@ const char *filename;
 # pragma unused(filename)
 #endif
 {
+#if TARGET_OS_IPHONE
+	return;
+#endif
 	char locknambuf[BUFSZ];
 	const char *lockname;
 

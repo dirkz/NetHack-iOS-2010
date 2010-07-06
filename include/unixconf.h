@@ -95,6 +95,11 @@
  *		Ralf Brown, 7/26/89 (from v2.3 hack of 10/10/88)
  */
 
+#if TARGET_OS_IPHONE
+#define NO_FILE_LINKS /* if no hard links */
+#define LOCKDIR "." /* where to put locks */
+#endif
+
 /* #define NO_FILE_LINKS */	/* if no hard links */
 /* #define LOCKDIR "/usr/games/lib/nethackdir" */	/* where to put locks */
 

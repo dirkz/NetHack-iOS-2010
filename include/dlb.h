@@ -109,6 +109,12 @@ long FDECL(dlb_ftell, (DLB_P));
 # define dlb_fgetc	fgetc
 # define dlb_ftell	ftell
 
+#if TARGET_OS_IPHONE
+extern FILE *ios_dlb_fopen(const char *filename, const char *mode);
+#undef dlb_fopen
+#define dlb_fopen iphone_dlb_fopen
+#endif
+
 #endif /* DLB */
 
 

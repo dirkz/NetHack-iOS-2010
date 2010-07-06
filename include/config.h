@@ -6,6 +6,10 @@
 #define CONFIG_H
 
 
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
 /*
  * Section 1:	Operating and window systems selection.
  *		Select the version of the OS you are using.
@@ -47,6 +51,11 @@
 /* #define QT_GRAPHICS */	/* Qt interface */
 /* #define GNOME_GRAPHICS */	/* Gnome interface */
 /* #define MSWIN_GRAPHICS */	/* Windows NT, CE, Graphics */
+
+#if TARGET_OS_IPHONE
+#undef TTY_GRAPHICS
+#define IOS_GRAPHICS
+#endif
 
 /*
  * Define the default window system.  This should be one that is compiled
@@ -113,6 +122,10 @@
 # define HACKDIR "\\nethack"
 #endif
 
+#ifdef IOS_GRAPHICS
+#define DEFAULT_WINDOW_SYS "ios"
+#endif
+
 #ifndef DEFAULT_WINDOW_SYS
 # define DEFAULT_WINDOW_SYS "tty"
 #endif
@@ -168,9 +181,12 @@
  */
 
 #ifdef UNIX
+#if !TARGET_OS_IPHONE
 /* path and file name extension for compression program */
 #define COMPRESS "/usr/bin/compress"	/* Lempel-Ziv compression */
 #define COMPRESS_EXTENSION ".Z"		/* compress's extension */
+#endif /* !TARGET_OS_IPHONE */
+
 /* An example of one alternative you might want to use: */
 /* #define COMPRESS "/usr/local/bin/gzip" */	/* FSF gzip compression */
 /* #define COMPRESS_EXTENSION ".gz" */		/* normal gzip extension */
@@ -185,7 +201,11 @@
  *	a tar-like file, thus making a neater installation.  See *conf.h
  *	for detailed configuration.
  */
+#if TARGET_OS_IPHONE
+//#define DLB */             /* not supported on iOS */
+#else
 /* #define DLB */	/* not supported on all platforms */
+#endif
 
 /*
  *	Defining INSURANCE slows down level changes, but allows games that

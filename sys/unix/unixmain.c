@@ -45,7 +45,11 @@ static boolean wiz_error_flag = FALSE;
 #endif
 
 int
+#if TARGET_OS_IPHONE
+unixmain(argc,argv)
+#else
 main(argc,argv)
+#endif
 int argc;
 char *argv[];
 {
