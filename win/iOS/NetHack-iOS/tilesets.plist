@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>author</key>
+		<string>John Shaw</string>
+		<key>filename</key>
+		<string>absurd32.png</string>
+	</dict>
+	<dict>
+		<key>author</key>
+		<string>Unknown</string>
+		<key>filename</key>
+		<string>tiles32.png</string>
+	</dict>
+	<dict>
+		<key>author</key>
+		<string>James Hogwood</string>
+		<key>filename</key>
+		<string>chozob32.png</string>
+	</dict>
+	<dict>
+		<key>author</key>
+		<string>James Hogwood</string>
+		<key>filename</key>
+		<string>chozo32.png</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>ascii</string>
+	</dict>
+</array>
+</plist>

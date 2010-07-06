@@ -300,6 +300,24 @@
 		4380ECF811E38A3300742473 /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380ECCC11E38A3300742473 /* TextViewController.m */; };
 		4380ECF911E38A3300742473 /* TileSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380ECCE11E38A3300742473 /* TileSetViewController.m */; };
 		4380ECFA11E38A3300742473 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380ECD011E38A3300742473 /* ToolsViewController.m */; };
+		4380ED4811E38E0900742473 /* absurd32.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED4211E38E0900742473 /* absurd32.png */; };
+		4380ED4911E38E0900742473 /* chozo32.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED4311E38E0900742473 /* chozo32.png */; };
+		4380ED4A11E38E0900742473 /* chozob32.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED4411E38E0900742473 /* chozob32.png */; };
+		4380ED4C11E38E0900742473 /* tiles32.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED4611E38E0900742473 /* tiles32.png */; };
+		4380ED4D11E38E0900742473 /* tilesets.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED4711E38E0900742473 /* tilesets.plist */; };
+		4380ED5F11E38FF900742473 /* ActionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5211E38FF900742473 /* ActionViewController.xib */; };
+		4380ED6011E38FF900742473 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5311E38FF900742473 /* Entitlements.plist */; };
+		4380ED6111E38FF900742473 /* ExtendedCommandsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5411E38FF900742473 /* ExtendedCommandsController.xib */; };
+		4380ED6211E38FF900742473 /* InventoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5511E38FF900742473 /* InventoryViewController.xib */; };
+		4380ED6311E38FF900742473 /* ItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5611E38FF900742473 /* ItemViewController.xib */; };
+		4380ED6411E38FF900742473 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5711E38FF900742473 /* MainViewController.xib */; };
+		4380ED6511E38FF900742473 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5811E38FF900742473 /* MainWindow.xib */; };
+		4380ED6611E38FF900742473 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5911E38FF900742473 /* MenuViewController.xib */; };
+		4380ED6711E38FF900742473 /* QuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5A11E38FF900742473 /* QuestionViewController.xib */; };
+		4380ED6811E38FF900742473 /* TextInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5B11E38FF900742473 /* TextInputController.xib */; };
+		4380ED6911E38FF900742473 /* TextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5C11E38FF900742473 /* TextViewController.xib */; };
+		4380ED6A11E38FF900742473 /* TileSetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5D11E38FF900742473 /* TileSetViewController.xib */; };
+		4380ED6B11E38FF900742473 /* ToolsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5E11E38FF900742473 /* ToolsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -740,6 +758,24 @@
 		4380ECCE11E38A3300742473 /* TileSetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileSetViewController.m; sourceTree = "<group>"; };
 		4380ECCF11E38A3300742473 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
 		4380ECD011E38A3300742473 /* ToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsViewController.m; sourceTree = "<group>"; };
+		4380ED4211E38E0900742473 /* absurd32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = absurd32.png; sourceTree = "<group>"; };
+		4380ED4311E38E0900742473 /* chozo32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chozo32.png; sourceTree = "<group>"; };
+		4380ED4411E38E0900742473 /* chozob32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chozob32.png; sourceTree = "<group>"; };
+		4380ED4611E38E0900742473 /* tiles32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles32.png; sourceTree = "<group>"; };
+		4380ED4711E38E0900742473 /* tilesets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tilesets.plist; sourceTree = "<group>"; };
+		4380ED5211E38FF900742473 /* ActionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionViewController.xib; sourceTree = "<group>"; };
+		4380ED5311E38FF900742473 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		4380ED5411E38FF900742473 /* ExtendedCommandsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtendedCommandsController.xib; sourceTree = "<group>"; };
+		4380ED5511E38FF900742473 /* InventoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InventoryViewController.xib; sourceTree = "<group>"; };
+		4380ED5611E38FF900742473 /* ItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemViewController.xib; sourceTree = "<group>"; };
+		4380ED5711E38FF900742473 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		4380ED5811E38FF900742473 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		4380ED5911E38FF900742473 /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
+		4380ED5A11E38FF900742473 /* QuestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionViewController.xib; sourceTree = "<group>"; };
+		4380ED5B11E38FF900742473 /* TextInputController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInputController.xib; sourceTree = "<group>"; };
+		4380ED5C11E38FF900742473 /* TextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewController.xib; sourceTree = "<group>"; };
+		4380ED5D11E38FF900742473 /* TileSetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TileSetViewController.xib; sourceTree = "<group>"; };
+		4380ED5E11E38FF900742473 /* ToolsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolsViewController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetHack_iOS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -768,6 +804,19 @@
 		2860E324111B887F00E27156 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				4380ED5211E38FF900742473 /* ActionViewController.xib */,
+				4380ED5311E38FF900742473 /* Entitlements.plist */,
+				4380ED5411E38FF900742473 /* ExtendedCommandsController.xib */,
+				4380ED5511E38FF900742473 /* InventoryViewController.xib */,
+				4380ED5611E38FF900742473 /* ItemViewController.xib */,
+				4380ED5711E38FF900742473 /* MainViewController.xib */,
+				4380ED5811E38FF900742473 /* MainWindow.xib */,
+				4380ED5911E38FF900742473 /* MenuViewController.xib */,
+				4380ED5A11E38FF900742473 /* QuestionViewController.xib */,
+				4380ED5B11E38FF900742473 /* TextInputController.xib */,
+				4380ED5C11E38FF900742473 /* TextViewController.xib */,
+				4380ED5D11E38FF900742473 /* TileSetViewController.xib */,
+				4380ED5E11E38FF900742473 /* ToolsViewController.xib */,
 				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
@@ -788,6 +837,8 @@
 		28EEBF621118D79A00187D67 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4380ED4111E38E0900742473 /* tilesets */,
+				4380ED4711E38E0900742473 /* tilesets.plist */,
 				4380E97A11E3804900742473 /* dat */,
 				8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */,
 			);
@@ -1310,6 +1361,17 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		4380ED4111E38E0900742473 /* tilesets */ = {
+			isa = PBXGroup;
+			children = (
+				4380ED4211E38E0900742473 /* absurd32.png */,
+				4380ED4311E38E0900742473 /* chozo32.png */,
+				4380ED4411E38E0900742473 /* chozob32.png */,
+				4380ED4611E38E0900742473 /* tiles32.png */,
+			);
+			path = tilesets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1487,6 +1549,24 @@
 				4380EB9111E3804A00742473 /* wizard2.lev in Resources */,
 				4380EB9211E3804A00742473 /* wizard3.lev in Resources */,
 				4380EB9311E3804A00742473 /* wizhelp in Resources */,
+				4380ED4811E38E0900742473 /* absurd32.png in Resources */,
+				4380ED4911E38E0900742473 /* chozo32.png in Resources */,
+				4380ED4A11E38E0900742473 /* chozob32.png in Resources */,
+				4380ED4C11E38E0900742473 /* tiles32.png in Resources */,
+				4380ED4D11E38E0900742473 /* tilesets.plist in Resources */,
+				4380ED5F11E38FF900742473 /* ActionViewController.xib in Resources */,
+				4380ED6011E38FF900742473 /* Entitlements.plist in Resources */,
+				4380ED6111E38FF900742473 /* ExtendedCommandsController.xib in Resources */,
+				4380ED6211E38FF900742473 /* InventoryViewController.xib in Resources */,
+				4380ED6311E38FF900742473 /* ItemViewController.xib in Resources */,
+				4380ED6411E38FF900742473 /* MainViewController.xib in Resources */,
+				4380ED6511E38FF900742473 /* MainWindow.xib in Resources */,
+				4380ED6611E38FF900742473 /* MenuViewController.xib in Resources */,
+				4380ED6711E38FF900742473 /* QuestionViewController.xib in Resources */,
+				4380ED6811E38FF900742473 /* TextInputController.xib in Resources */,
+				4380ED6911E38FF900742473 /* TextViewController.xib in Resources */,
+				4380ED6A11E38FF900742473 /* TileSetViewController.xib in Resources */,
+				4380ED6B11E38FF900742473 /* ToolsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
