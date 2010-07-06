@@ -103,6 +103,10 @@
 /* #define NO_FILE_LINKS */	/* if no hard links */
 /* #define LOCKDIR "/usr/games/lib/nethackdir" */	/* where to put locks */
 
+#if TARGET_OS_IPHONE
+#define SELF_RECOVER		/* Allow the game itself to recover from an aborted game */
+#endif
+
 /*
  * If you want the static parts of your playground on a read-only file
  * system, define VAR_PLAYGROUND to be where the variable parts are kept.

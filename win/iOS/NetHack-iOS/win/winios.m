@@ -159,7 +159,7 @@ coord CoordMake(xchar i, xchar j) {
 
 FILE *ios_dlb_fopen(const char *filename, const char *mode) {
 	char path[FQN_MAX_FILENAME];
-	[Winios expandFilename:filename intoPath:path];
+	[WiniOS expandFilename:filename intoPath:path];
 	FILE *file = fopen(path, mode);
 	return file;
 }
@@ -283,7 +283,7 @@ void ios_putstr(winid wid, int attr, const char *text) {
 void ios_display_file(const char *filename, BOOLEAN_P must_exist) {
 	//DLog(@"display_file %s", filename);
 	char path[FQN_MAX_FILENAME];
-	[Winios expandFilename:filename intoPath:path];
+	[WiniOS expandFilename:filename intoPath:path];
 	NSError *error = nil;
 	NSString *contents = [NSString stringWithContentsOfFile:
 						  [NSString stringWithCString:path encoding:NSASCIIStringEncoding]
