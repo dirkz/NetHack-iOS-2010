@@ -193,14 +193,24 @@ enum InvFlags {
 					[self addCommand:[NhCommand commandWithTitle:"Loot Container" keys:cmdLoot] toCommands:commands key:kFloor];
 				}
 			} else if (is_edible(object)) {
+#if SLASHEM
 				[self addCommand:[NhCommand commandWithTitle:"Eat what's here" keys:"e,"]
 					  toCommands:commands key:kFloor];
+#else
+				[self addCommand:[NhCommand commandWithTitle:"Eat" keys:"e"]
+					  toCommands:commands key:kFloor];
+#endif
 				if (object->otyp == CORPSE) {
 					oCorpse = object;
 					if (inv & fTinningKit) {
 						NhObject *tinningKit = [NhObject objectWithObject:oTinningKit];
+#if SLASHEM
 						[self addCommand:[NhCommand commandWithObject:tinningKit title:"Tin what's here" keys:"a" direction:","]
-							  toCommands:commands key:kFloor]; 
+							  toCommands:commands key:kFloor];
+#else
+						[self addCommand:[NhCommand commandWithObject:tinningKit title:"Tin" keys:"a"]
+							  toCommands:commands key:kFloor];
+#endif
 					}
 				}
 			}
@@ -225,7 +235,11 @@ enum InvFlags {
 	}
 	if (IS_FOUNTAIN(levl[u.ux][u.uy].typ) || IS_SINK(levl[u.ux][u.uy].typ) || IS_TOILET(levl[u.ux][u.uy].typ)) {
 		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands key:kDungeon];
+#if SLASHEM
 		[self addCommand:[NhCommand commandWithTitle:"Quaff" keys:"q."] toCommands:commands key:kDungeon];
+#else
+		[self addCommand:[NhCommand commandWithTitle:"Quaff" keys:"q"] toCommands:commands key:kDungeon];
+#endif
 		[self addCommand:[NhCommand commandWithTitle:"Dip" key:M('d')] toCommands:commands key:kDungeon];
 	}
 	if (IS_THRONE(levl[u.ux][u.uy].typ)) {
@@ -301,7 +315,11 @@ enum InvFlags {
 	}
 	
 	if (inv & fEngraved) {
+#if SLASHEM
 		[self addCommand:[NhCommand commandWithTitle:"Read what's here" keys:"r."] toCommands:commands key:kFloor];
+#else
+		[self addCommand:[NhCommand commandWithTitle:"Read" keys:"r"] toCommands:commands key:kFloor];
+#endif
 	}
 	
 	[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands key:kDungeon];

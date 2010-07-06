@@ -80,6 +80,12 @@ extern boolean ios_getpos;
 
 coord CoordMake(xchar i, xchar j);
 
+#if defined IS_TOILET
+#define SLASHEM 1
+#else
+#define SLASHEM 0
+#endif
+
 #ifdef __OBJC__
 
 @interface WiniOS : NSObject {}

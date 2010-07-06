@@ -200,7 +200,7 @@ void ios_init_nhwindows(int* argc, char** argv) {
 		wizard = TRUE;
 	}
 
-#if TARGET_OS_ios && TARGET_ios_SIMULATOR
+#if TARGET_OS_IPHONE && TARGET_IPHONE_SIMULATOR
 	wizard = TRUE; /* debugging */
 #endif
 	
@@ -478,7 +478,7 @@ void ios_number_pad(int num) {
 
 void ios_delay_output() {
 	//DLog(@"delay_output");
-#if TARGET_ios_SIMULATOR
+#if TARGET_IPHONE_SIMULATOR
 	//usleep(500000);
 #endif	
 }
