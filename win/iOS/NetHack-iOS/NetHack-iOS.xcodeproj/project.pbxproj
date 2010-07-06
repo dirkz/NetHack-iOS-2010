@@ -325,7 +325,7 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* NetHack-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NetHack-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* iNetHack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iNetHack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2860E325111B887F00E27156 /* AppDelegate_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_iPhone.h; sourceTree = "<group>"; };
 		2860E326111B887F00E27156 /* AppDelegate_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate_iPhone.m; sourceTree = "<group>"; };
@@ -802,7 +802,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* NetHack-iOS.app */,
+				1D6058910D05DD3D006BFB54 /* iNetHack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1392,9 +1392,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* NetHack-iOS */ = {
+		1D6058900D05DD3D006BFB54 /* iNetHack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "NetHack-iOS" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "iNetHack" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -1404,9 +1404,9 @@
 			);
 			dependencies = (
 			);
-			name = "NetHack-iOS";
+			name = iNetHack;
 			productName = "NetHack-iOS";
-			productReference = 1D6058910D05DD3D006BFB54 /* NetHack-iOS.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* iNetHack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1421,7 +1421,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* NetHack-iOS */,
+				1D6058900D05DD3D006BFB54 /* iNetHack */,
 			);
 		};
 /* End PBXProject section */
@@ -1768,7 +1768,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NetHack_iOS_Prefix.pch;
 				INFOPLIST_FILE = "NetHack_iOS-Info.plist";
-				PRODUCT_NAME = "NetHack-iOS";
+				PRODUCT_NAME = iNetHack;
 			};
 			name = Debug;
 		};
@@ -1780,7 +1780,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NetHack_iOS_Prefix.pch;
 				INFOPLIST_FILE = "NetHack_iOS-Info.plist";
-				PRODUCT_NAME = "NetHack-iOS";
+				PRODUCT_NAME = iNetHack;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1821,7 +1821,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "NetHack-iOS" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "iNetHack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
