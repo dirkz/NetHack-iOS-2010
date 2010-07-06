@@ -259,6 +259,7 @@
 		4380EC0911E3804A00742473 /* zap.c in Sources */ = {isa = PBXBuildFile; fileRef = 4380EAF411E3804A00742473 /* zap.c */; };
 		4380EC2A11E3812300742473 /* unixmain.c in Sources */ = {isa = PBXBuildFile; fileRef = 4380EC1911E3812300742473 /* unixmain.c */; };
 		4380EC2C11E3812300742473 /* unixunix.c in Sources */ = {isa = PBXBuildFile; fileRef = 4380EC1B11E3812300742473 /* unixunix.c */; };
+		4380EC6711E3889B00742473 /* winios.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380EC6611E3889B00742473 /* winios.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -617,6 +618,8 @@
 		4380EAF411E3804A00742473 /* zap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zap.c; sourceTree = "<group>"; };
 		4380EC1911E3812300742473 /* unixmain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixmain.c; sourceTree = "<group>"; };
 		4380EC1B11E3812300742473 /* unixunix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixunix.c; sourceTree = "<group>"; };
+		4380EC6511E3889B00742473 /* winios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winios.h; sourceTree = "<group>"; };
+		4380EC6611E3889B00742473 /* winios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = winios.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetHack_iOS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -674,6 +677,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				4380EC6411E3889B00742473 /* win */,
 				4380EC0A11E3812300742473 /* unix */,
 				4380EA1B11E3804A00742473 /* include */,
 				4380EA7F11E3804A00742473 /* src */,
@@ -1081,6 +1085,15 @@
 			path = ../../../sys/unix;
 			sourceTree = SOURCE_ROOT;
 		};
+		4380EC6411E3889B00742473 /* win */ = {
+			isa = PBXGroup;
+			children = (
+				4380EC6511E3889B00742473 /* winios.h */,
+				4380EC6611E3889B00742473 /* winios.m */,
+			);
+			path = win;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1382,6 +1395,7 @@
 				4380EC0911E3804A00742473 /* zap.c in Sources */,
 				4380EC2A11E3812300742473 /* unixmain.c in Sources */,
 				4380EC2C11E3812300742473 /* unixunix.c in Sources */,
+				4380EC6711E3889B00742473 /* winios.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
