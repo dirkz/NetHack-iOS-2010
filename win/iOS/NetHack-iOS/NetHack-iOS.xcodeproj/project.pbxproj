@@ -320,6 +320,7 @@
 		4380EDC211E3944300742473 /* actionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDBF11E3944300742473 /* actionButton.png */; };
 		4380EDC311E3944300742473 /* dropdownButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC011E3944300742473 /* dropdownButton.png */; };
 		4380EDC411E3944300742473 /* petmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC111E3944300742473 /* petmark.png */; };
+		4380EDD911E3955A00742473 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDD811E3955A00742473 /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -780,6 +781,7 @@
 		4380EDBF11E3944300742473 /* actionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = actionButton.png; sourceTree = "<group>"; };
 		4380EDC011E3944300742473 /* dropdownButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdownButton.png; sourceTree = "<group>"; };
 		4380EDC111E3944300742473 /* petmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petmark.png; sourceTree = "<group>"; };
+		4380EDD811E3955A00742473 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetHack_iOS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -808,6 +810,7 @@
 		2860E324111B887F00E27156 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				4380EDD811E3955A00742473 /* Icon.png */,
 				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
 				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				4380ED5211E38FF900742473 /* ActionViewController.xib */,
@@ -1583,6 +1586,7 @@
 				4380EDC211E3944300742473 /* actionButton.png in Resources */,
 				4380EDC311E3944300742473 /* dropdownButton.png in Resources */,
 				4380EDC411E3944300742473 /* petmark.png in Resources */,
+				4380EDD911E3955A00742473 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
