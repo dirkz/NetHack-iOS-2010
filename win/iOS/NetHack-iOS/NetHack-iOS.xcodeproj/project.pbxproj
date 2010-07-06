@@ -11,7 +11,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2860E328111B887F00E27156 /* AppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E326111B887F00E27156 /* AppDelegate_iPhone.m */; };
-		2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E327111B887F00E27156 /* MainWindow_iPhone.xib */; };
 		2860E32E111B888700E27156 /* AppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 2860E32C111B888700E27156 /* AppDelegate_iPad.m */; };
 		2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2860E32D111B888700E27156 /* MainWindow_iPad.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
@@ -311,7 +310,7 @@
 		4380ED6211E38FF900742473 /* InventoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5511E38FF900742473 /* InventoryViewController.xib */; };
 		4380ED6311E38FF900742473 /* ItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5611E38FF900742473 /* ItemViewController.xib */; };
 		4380ED6411E38FF900742473 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5711E38FF900742473 /* MainViewController.xib */; };
-		4380ED6511E38FF900742473 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5811E38FF900742473 /* MainWindow.xib */; };
+		4380ED6511E38FF900742473 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5811E38FF900742473 /* MainWindow_iPhone.xib */; };
 		4380ED6611E38FF900742473 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5911E38FF900742473 /* MenuViewController.xib */; };
 		4380ED6711E38FF900742473 /* QuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5A11E38FF900742473 /* QuestionViewController.xib */; };
 		4380ED6811E38FF900742473 /* TextInputController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5B11E38FF900742473 /* TextInputController.xib */; };
@@ -326,7 +325,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2860E325111B887F00E27156 /* AppDelegate_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_iPhone.h; sourceTree = "<group>"; };
 		2860E326111B887F00E27156 /* AppDelegate_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate_iPhone.m; sourceTree = "<group>"; };
-		2860E327111B887F00E27156 /* MainWindow_iPhone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		2860E32B111B888700E27156 /* AppDelegate_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_iPad.h; sourceTree = "<group>"; };
 		2860E32C111B888700E27156 /* AppDelegate_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate_iPad.m; sourceTree = "<group>"; };
 		2860E32D111B888700E27156 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
@@ -769,7 +767,7 @@
 		4380ED5511E38FF900742473 /* InventoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InventoryViewController.xib; sourceTree = "<group>"; };
 		4380ED5611E38FF900742473 /* ItemViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemViewController.xib; sourceTree = "<group>"; };
 		4380ED5711E38FF900742473 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		4380ED5811E38FF900742473 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		4380ED5811E38FF900742473 /* MainWindow_iPhone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		4380ED5911E38FF900742473 /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		4380ED5A11E38FF900742473 /* QuestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionViewController.xib; sourceTree = "<group>"; };
 		4380ED5B11E38FF900742473 /* TextInputController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInputController.xib; sourceTree = "<group>"; };
@@ -804,22 +802,21 @@
 		2860E324111B887F00E27156 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
+				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
 				4380ED5211E38FF900742473 /* ActionViewController.xib */,
 				4380ED5311E38FF900742473 /* Entitlements.plist */,
 				4380ED5411E38FF900742473 /* ExtendedCommandsController.xib */,
 				4380ED5511E38FF900742473 /* InventoryViewController.xib */,
 				4380ED5611E38FF900742473 /* ItemViewController.xib */,
 				4380ED5711E38FF900742473 /* MainViewController.xib */,
-				4380ED5811E38FF900742473 /* MainWindow.xib */,
+				4380ED5811E38FF900742473 /* MainWindow_iPhone.xib */,
 				4380ED5911E38FF900742473 /* MenuViewController.xib */,
 				4380ED5A11E38FF900742473 /* QuestionViewController.xib */,
 				4380ED5B11E38FF900742473 /* TextInputController.xib */,
 				4380ED5C11E38FF900742473 /* TextViewController.xib */,
 				4380ED5D11E38FF900742473 /* TileSetViewController.xib */,
 				4380ED5E11E38FF900742473 /* ToolsViewController.xib */,
-				2860E325111B887F00E27156 /* AppDelegate_iPhone.h */,
-				2860E326111B887F00E27156 /* AppDelegate_iPhone.m */,
-				2860E327111B887F00E27156 /* MainWindow_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -1414,7 +1411,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2860E329111B887F00E27156 /* MainWindow_iPhone.xib in Resources */,
 				2860E32F111B888700E27156 /* MainWindow_iPad.xib in Resources */,
 				4380EAF511E3804A00742473 /* air.lev in Resources */,
 				4380EAF611E3804A00742473 /* Arc-fila.lev in Resources */,
@@ -1560,7 +1556,7 @@
 				4380ED6211E38FF900742473 /* InventoryViewController.xib in Resources */,
 				4380ED6311E38FF900742473 /* ItemViewController.xib in Resources */,
 				4380ED6411E38FF900742473 /* MainViewController.xib in Resources */,
-				4380ED6511E38FF900742473 /* MainWindow.xib in Resources */,
+				4380ED6511E38FF900742473 /* MainWindow_iPhone.xib in Resources */,
 				4380ED6611E38FF900742473 /* MenuViewController.xib in Resources */,
 				4380ED6711E38FF900742473 /* QuestionViewController.xib in Resources */,
 				4380ED6811E38FF900742473 /* TextInputController.xib in Resources */,
@@ -1771,6 +1767,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = DLOG;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -1786,6 +1783,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
