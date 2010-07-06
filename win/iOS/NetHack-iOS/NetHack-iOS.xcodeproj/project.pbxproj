@@ -317,6 +317,9 @@
 		4380ED6911E38FF900742473 /* TextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5C11E38FF900742473 /* TextViewController.xib */; };
 		4380ED6A11E38FF900742473 /* TileSetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5D11E38FF900742473 /* TileSetViewController.xib */; };
 		4380ED6B11E38FF900742473 /* ToolsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4380ED5E11E38FF900742473 /* ToolsViewController.xib */; };
+		4380EDC211E3944300742473 /* actionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDBF11E3944300742473 /* actionButton.png */; };
+		4380EDC311E3944300742473 /* dropdownButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC011E3944300742473 /* dropdownButton.png */; };
+		4380EDC411E3944300742473 /* petmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC111E3944300742473 /* petmark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -774,6 +777,9 @@
 		4380ED5C11E38FF900742473 /* TextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewController.xib; sourceTree = "<group>"; };
 		4380ED5D11E38FF900742473 /* TileSetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TileSetViewController.xib; sourceTree = "<group>"; };
 		4380ED5E11E38FF900742473 /* ToolsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolsViewController.xib; sourceTree = "<group>"; };
+		4380EDBF11E3944300742473 /* actionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = actionButton.png; sourceTree = "<group>"; };
+		4380EDC011E3944300742473 /* dropdownButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdownButton.png; sourceTree = "<group>"; };
+		4380EDC111E3944300742473 /* petmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petmark.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetHack_iOS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -834,6 +840,7 @@
 		28EEBF621118D79A00187D67 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				4380EDBE11E3944300742473 /* gfx */,
 				4380ED4111E38E0900742473 /* tilesets */,
 				4380ED4711E38E0900742473 /* tilesets.plist */,
 				4380E97A11E3804900742473 /* dat */,
@@ -1369,6 +1376,16 @@
 			path = tilesets;
 			sourceTree = "<group>";
 		};
+		4380EDBE11E3944300742473 /* gfx */ = {
+			isa = PBXGroup;
+			children = (
+				4380EDBF11E3944300742473 /* actionButton.png */,
+				4380EDC011E3944300742473 /* dropdownButton.png */,
+				4380EDC111E3944300742473 /* petmark.png */,
+			);
+			path = gfx;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1563,6 +1580,9 @@
 				4380ED6911E38FF900742473 /* TextViewController.xib in Resources */,
 				4380ED6A11E38FF900742473 /* TileSetViewController.xib in Resources */,
 				4380ED6B11E38FF900742473 /* ToolsViewController.xib in Resources */,
+				4380EDC211E3944300742473 /* actionButton.png in Resources */,
+				4380EDC311E3944300742473 /* dropdownButton.png in Resources */,
+				4380EDC411E3944300742473 /* petmark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
