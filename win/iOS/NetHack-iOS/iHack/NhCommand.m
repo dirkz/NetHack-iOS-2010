@@ -94,17 +94,21 @@ enum InvFlags {
 	fReadable = 4,
 	fWeapon = 8,
 	fAppliable = 16,
-	fEngraved = 32, // something readable on the ground, engraved or written in the dust
 	fEdible = 64,
 	fCorpse = 128,
 	fUnpaid = 256,
 	fTinningKit = 512,
-	fDustWritten = 1024,
+};
+
+enum GroundFlags {
+	fEngraved = 1, // something readable on the ground, engraved or written in the dust
+	fDustWritten = 2, // like fEngraved but written in the dust
 };
 
 + (NSDictionary *)currentCommands {
 	NSMutableDictionary *commands = [NSMutableDictionary dictionary];
 	int inv = 0;
+	int ground = 0;
 	struct obj *oTinningKit = NULL;
 	struct obj *oCorpse = NULL; // corpse lying around
 	struct obj *oWieldedWeapon = NULL;
@@ -223,6 +227,22 @@ enum InvFlags {
 		}
 	}
 	
+	struct engr *ep = engr_at(u.ux, u.uy);
+	if (ep) {
+		ground |= fEngraved; // not really inventory
+		if (ep->engr_type == DUST) {
+			ground |= fDustWritten;
+		}
+	}
+	
+	if (ground & fEngraved) {
+#if SLASHEM
+		[self addCommand:[NhCommand commandWithTitle:"Read what's here" keys:"r."] toCommands:commands key:kFloor];
+#else
+		[self addCommand:[NhCommand commandWithTitle:"What's here" keys:":"] toCommands:commands key:kFloor];
+#endif
+	}
+	
 	if (IS_ALTAR(levl[u.ux][u.uy].typ)) {
 		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands key:kDungeon];
 		if (inv & fCorpse) {
@@ -251,14 +271,6 @@ enum InvFlags {
 		NhObject *wieldedWeapon = [NhObject objectWithObject:oWieldedWeapon];
 		[self addCommand:[NhCommand commandWithObject:wieldedWeapon title:"Apply wielded weapon" keys:"a"]
 			  toCommands:commands key:kInventory]; 
-	}
-	
-	struct engr *ep = engr_at(u.ux, u.uy);
-	if (ep) {
-		inv |= fEngraved; // not really inventory
-		if (ep->engr_type == DUST) {
-			inv |= fDustWritten;
-		}
 	}
 	
 	struct trap *t = t_at(u.ux, u.uy);
@@ -314,17 +326,9 @@ enum InvFlags {
 		}
 	}
 	
-	if (inv & fEngraved) {
-#if SLASHEM
-		[self addCommand:[NhCommand commandWithTitle:"Read what's here" keys:"r."] toCommands:commands key:kFloor];
-#else
-		[self addCommand:[NhCommand commandWithTitle:"What's here" keys:":"] toCommands:commands key:kFloor];
-#endif
-	}
-	
 	[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands key:kDungeon];
-	if (inv & fEngraved) {
-		if (inv & fDustWritten) {
+	if (ground & fEngraved) {
+		if (ground & fDustWritten) {
 			[self addCommand:[NhCommand commandWithTitle:"E-Word" keys:"E-nElbereth\n"] toCommands:commands key:kMisc];
 		}
 	} else {
