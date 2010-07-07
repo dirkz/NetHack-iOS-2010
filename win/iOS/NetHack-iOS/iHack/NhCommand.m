@@ -98,6 +98,7 @@ enum InvFlags {
 	fCorpse = 128,
 	fUnpaid = 256,
 	fTinningKit = 512,
+	fAthameWielded = 1024, // athame wielded
 };
 
 enum GroundFlags {
@@ -129,6 +130,9 @@ enum GroundFlags {
 				if (otmp->owornmask & W_WEP) {
 					inv |= fWieldedWeapon;
 					oWieldedWeapon = otmp;
+					if (otmp->otyp == ATHAME) {
+						inv |= fAthameWielded;
+					}
 				}
 				inv |= fWeapon;
 				break;
@@ -327,13 +331,39 @@ enum GroundFlags {
 	}
 	
 	[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands key:kDungeon];
+	
+	// automatic E-Word
+	char ewordCmd[20];
+	BOOL ewordPossible = NO;
+	const char *ewordMeans = "Fingers";
 	if (ground & fEngraved) {
-		if (ground & fDustWritten) {
-			[self addCommand:[NhCommand commandWithTitle:"E-Word" keys:"E-nElbereth\n"] toCommands:commands key:kMisc];
+		if (inv & fAthameWielded) {
+			ewordPossible = YES;
+			ewordMeans = xname(oWieldedWeapon);
+			if (ground & fDustWritten) {
+				sprintf(ewordCmd, "E%cElbereth\n", oWieldedWeapon->invlet);
+			} else {
+				sprintf(ewordCmd, "E%cnElbereth\n", oWieldedWeapon->invlet);
+			}
+		} else if (ground & fDustWritten) {
+			ewordPossible = YES;
+			strcpy(ewordCmd, "E-nElbereth\n");
 		}
 	} else {
-		[self addCommand:[NhCommand commandWithTitle:"E-Word" keys:"E-Elbereth\n"] toCommands:commands key:kMisc];
+		if (inv & fAthameWielded) {
+			ewordPossible = YES;
+			sprintf(ewordCmd, "E%cElbereth\n", oWieldedWeapon->invlet);
+		} else {
+			ewordPossible = YES;
+			strcpy(ewordCmd, "E-Elbereth\n");
+		}
 	}
+	if (ewordPossible) {
+		char ewordTitle[40];
+		sprintf(ewordTitle, "E-Word (%s)", ewordMeans);
+		[self addCommand:[NhCommand commandWithTitle:ewordTitle keys:ewordCmd] toCommands:commands key:kMisc];
+	}
+	
 	if (inside_shop(u.ux, u.uy)) {
 		[self addCommand:[NhCommand commandWithTitle:"Pay" key:'p'] toCommands:commands key:kMisc];
 	}
