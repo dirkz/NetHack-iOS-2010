@@ -318,7 +318,7 @@ enum InvFlags {
 #if SLASHEM
 		[self addCommand:[NhCommand commandWithTitle:"Read what's here" keys:"r."] toCommands:commands key:kFloor];
 #else
-		[self addCommand:[NhCommand commandWithTitle:"Read" keys:"r"] toCommands:commands key:kFloor];
+		[self addCommand:[NhCommand commandWithTitle:"What's here" keys:":"] toCommands:commands key:kFloor];
 #endif
 	}
 	
