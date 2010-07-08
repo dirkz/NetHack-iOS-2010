@@ -104,4 +104,8 @@
 // dismisses any current popovers and prepares that one
 - (UIPopoverController *)popoverWithController:(UIViewController *)controller;
 
+// displays the given controller in a popover,
+// treating the sender (from an LayeredActionBar action) as CGRect
+- (void)displayPopoverWithController:(UIViewController *)controller sender:(id)sender;
+
 @end

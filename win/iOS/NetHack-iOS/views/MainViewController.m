@@ -129,11 +129,7 @@ enum rotation_lock {
 
 - (void)inventoryMenuAction:(id)sender {
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		UIPopoverController *popover = [self popoverWithController:self.inventoryNavigationController];
-		CGRect rect = [(NSValue *) sender CGRectValue];
-		rect = [self.view convertRect:rect fromView:layeredActionBar];
-		[popover presentPopoverFromRect:rect inView:mapView
-			   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+		[self displayPopoverWithController:self.inventoryNavigationController sender:sender];
 	} else {
 		[self presentModalViewController:self.inventoryNavigationController animated:YES];
 	}
@@ -227,6 +223,13 @@ enum rotation_lock {
 		menuViewController = [[MenuViewController alloc] initWithNibName:@"MenuViewController" bundle:nil];
 	}
 	return menuViewController;
+}
+
+- (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		modalViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+	}
+	[super presentModalViewController:modalViewController animated:animated];
 }
 
 #pragma mark window API
@@ -690,6 +693,14 @@ enum rotation_lock {
 	}
 	currentPopover = [[UIPopoverController alloc] initWithContentViewController:controller];
 	return currentPopover;
+}
+
+- (void)displayPopoverWithController:(UIViewController *)controller sender:(id)sender {
+	UIPopoverController *popover = [self popoverWithController:controller];
+	CGRect rect = [(NSValue *) sender CGRectValue];
+	rect = [self.view convertRect:rect fromView:layeredActionBar];
+	[popover presentPopoverFromRect:rect inView:mapView
+		   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 #pragma mark UIAlertViewDelegate
