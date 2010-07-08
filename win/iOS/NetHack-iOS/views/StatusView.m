@@ -25,6 +25,8 @@
 #import "StatusView.h"
 #import "NhStatus.h"
 
+#import "hack.h"
+
 @implementation StatusView
 
 - (void)setup {
@@ -46,51 +48,53 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-	float space = 5.0f;
-	UIFont *font = nil;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		font = [UIFont systemFontOfSize:16.0f];
-	} else {
-		font = [UIFont systemFontOfSize:13.0f];
-	}
-	CGContextRef ctx = UIGraphicsGetCurrentContext();
-	CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
-	CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
-	NSString *bot1 = [NSString stringWithFormat:@"Str:%s Dx:%u Con:%u Int:%u Wis:%u Cha:%u %s",
-					  status.strength, status.dexterity, status.constitution, status.intelligence,
-					  status.wisdom, status.charisma, status.alignment];
-	CGPoint p = CGPointMake(5.0f, 0.0f);
-	CGSize size = [bot1 drawAtPoint:p withFont:font];
-	NSString *bot2 = [NSString stringWithFormat:@"%s $%d Hp:%u/%u Pw:%u/%u AC:%d XP:%u T:%u",
-					  status.level, status.money, status.hitpoints, status.maxHitpoints, status.power,
-					  status.maxPower, status.ac, status.xlvl, status.turn];
-	p.y += size.height;
-	
-	// make font smaller if a lot to display
-	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-		if (self.bounds.size.width <= 320.0f && (status.hungryState != 1 || strlen(status.status))) {
-			font = [UIFont systemFontOfSize:10.0f];
+	if (!program_state.gameover && program_state.something_worth_saving) {
+		float space = 5.0f;
+		UIFont *font = nil;
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			font = [UIFont systemFontOfSize:16.0f];
+		} else {
+			font = [UIFont systemFontOfSize:13.0f];
 		}
-	}
-	
-	size = [bot2 drawAtPoint:p withFont:font];
-
-	p.x += size.width + space;
-	if (status.hungryState != 1) {
-		if (status.hungryState > 1) {
+		CGContextRef ctx = UIGraphicsGetCurrentContext();
+		CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
+		CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+		NSString *bot1 = [NSString stringWithFormat:@"Str:%s Dx:%u Con:%u Int:%u Wis:%u Cha:%u %s",
+						  status.strength, status.dexterity, status.constitution, status.intelligence,
+						  status.wisdom, status.charisma, status.alignment];
+		CGPoint p = CGPointMake(5.0f, 0.0f);
+		CGSize size = [bot1 drawAtPoint:p withFont:font];
+		NSString *bot2 = [NSString stringWithFormat:@"%s $%d Hp:%u/%u Pw:%u/%u AC:%d XP:%u T:%u",
+						  status.level, status.money, status.hitpoints, status.maxHitpoints, status.power,
+						  status.maxPower, status.ac, status.xlvl, status.turn];
+		p.y += size.height;
+		
+		// make font smaller if a lot to display
+		if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+			if (self.bounds.size.width <= 320.0f && (status.hungryState != 1 || strlen(status.status))) {
+				font = [UIFont systemFontOfSize:10.0f];
+			}
+		}
+		
+		size = [bot2 drawAtPoint:p withFont:font];
+		
+		p.x += size.width + space;
+		if (status.hungryState != 1) {
+			if (status.hungryState > 1) {
+				CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
+				CGContextSetFillColorWithColor(ctx, [UIColor redColor].CGColor);
+			}
+			NSString *hunger = [NSString stringWithCString:status.hunger encoding:NSASCIIStringEncoding];
+			size = [hunger drawAtPoint:p withFont:font];
+			p.x += size.width + space;
+		}
+		
+		if (strlen(status.status)) {
 			CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
 			CGContextSetFillColorWithColor(ctx, [UIColor redColor].CGColor);
+			NSString *info = [NSString stringWithCString:status.status encoding:NSASCIIStringEncoding];
+			size = [info drawAtPoint:p withFont:font];
 		}
-		NSString *hunger = [NSString stringWithCString:status.hunger encoding:NSASCIIStringEncoding];
-		size = [hunger drawAtPoint:p withFont:font];
-		p.x += size.width + space;
-	}
-	
-	if (strlen(status.status)) {
-		CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
-		CGContextSetFillColorWithColor(ctx, [UIColor redColor].CGColor);
-		NSString *info = [NSString stringWithCString:status.status encoding:NSASCIIStringEncoding];
-		size = [info drawAtPoint:p withFont:font];
 	}
 }
 

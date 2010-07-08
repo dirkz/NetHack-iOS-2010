@@ -100,18 +100,11 @@ static BOOL s_doubleTapsEnabled = NO;
 		CGPoint start = CGPointMake(clipOffset.x+panOffset.x,
 									self.bounds.size.height-tileSize.height-clipOffset.y-panOffset.y);
 		
-		// indicate map bounds
-		float boundsColor[] = { 0.4f, 0.4f, 0.4f, 1.0f };
-		CGContextSetStrokeColor(ctx, boundsColor);
-		float thickness = 3.0f;
-		CGRect boundsRect = CGRectMake(start.x - thickness, start.y + tileSize.height + thickness,
-									   COLNO * tileSize.width + thickness, -ROWNO * tileSize.height + thickness);
-		CGContextStrokeRectWithWidth(ctx, boundsRect, thickness);
-		
 		TileSet *tileSet = [TileSet instance];
 		
 		int *glyphs = map.glyphs;
 		BOOL supportsTransparency = [tileSet supportsTransparency];
+		BOOL glyphDrawn = NO;
 		for (int j = 0; j < ROWNO; ++j) {
 			for (int i = 0; i < COLNO; ++i) {
 				CGPoint p = CGPointMake(start.x+i*tileSize.width,
@@ -120,6 +113,7 @@ static BOOL s_doubleTapsEnabled = NO;
 				if (CGRectIntersectsRect(r, rect)) {
 					int glyph = glyphAt(glyphs, i, j);
 					if (glyph != kNoGlyph) {
+						glyphDrawn = YES;
 						// draw background
 						if (supportsTransparency) {
 							int backGlyph = back_to_glyph(i, j);
@@ -158,6 +152,15 @@ static BOOL s_doubleTapsEnabled = NO;
 					}
 				}
 			}
+		}
+		if (glyphDrawn) {
+			// indicate map bounds
+			float boundsColor[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+			CGContextSetStrokeColor(ctx, boundsColor);
+			float thickness = 3.0f;
+			CGRect boundsRect = CGRectMake(start.x - thickness, start.y + tileSize.height + thickness,
+										   COLNO * tileSize.width + thickness, -ROWNO * tileSize.height + thickness);
+			CGContextStrokeRectWithWidth(ctx, boundsRect, thickness);
 		}
 	}
 }
