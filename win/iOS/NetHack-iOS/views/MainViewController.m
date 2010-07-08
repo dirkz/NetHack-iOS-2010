@@ -46,6 +46,7 @@
 #import "QuestionViewController.h"
 #import "NhStatus.h"
 #import "StatusView.h"
+#import "LayeredActionBar.h"
 
 #import "winios.h" // ipad_getpos etc.
 
@@ -249,9 +250,13 @@ enum rotation_lock {
 #if 0 // test
 			[toolbarItems addObject:[CommandButtonItem buttonWithAction:[NhCommand commandWithTitle:"Drop" key:'D']]];
 #endif
-			
-			[actionBar setActions:toolbarItems];
-			[actionScrollView setContentSize:actionBar.frame.size];
+
+			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+				[layeredActionBar setActions:toolbarItems];
+			} else {
+				[actionBar setActions:toolbarItems];
+				[actionScrollView setContentSize:actionBar.frame.size];
+			}
 		}
 
 		[self refreshAllViews];

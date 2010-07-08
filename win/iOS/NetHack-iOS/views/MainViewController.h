@@ -34,6 +34,7 @@
 @class MessageView;
 @class MapView;
 @class ActionBar;
+@class LayeredActionBar;
 @class StatusView;
 
 @interface MainViewController : UIViewController <UITextFieldDelegate> {
@@ -42,6 +43,7 @@
 	IBOutlet StatusView *statusView;
 	IBOutlet MapView *mapView;
 	IBOutlet ActionBar *actionBar;
+	IBOutlet LayeredActionBar *layeredActionBar;
 	IBOutlet UIScrollView *actionScrollView;
 	
 	NhYnQuestion *currentYnQuestion;
