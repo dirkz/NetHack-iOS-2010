@@ -120,10 +120,15 @@ static const CGSize s_actionTileSize  = { 64, 40 };
 
 #pragma mark touch handling
 
-- (NSUInteger)actionIndexForTouch:(UITouch *)touch {
+- (CALayer *)layerForTouch:(UITouch *)touch {
 	CGPoint point = [touch locationInView:touch.view];
 	point = [touch.view convertPoint:point toView:self.superview];
-	return [actionLayers indexOfObject:[self.layer hitTest:point]];
+	return [self.layer hitTest:point];
+}
+
+- (NSUInteger)actionIndexForTouch:(UITouch *)touch {
+	CALayer *layer = [self layerForTouch:touch];
+	return [actionLayers indexOfObject:layer];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -143,9 +148,12 @@ static const CGSize s_actionTileSize  = { 64, 40 };
 	if (highlightedIndex == -1) {
 		return;
 	}
-	NSUInteger touchedIndex = [self actionIndexForTouch:touches.anyObject];
+	CALayer *layer = [self layerForTouch:touches.anyObject];
+	NSUInteger touchedIndex = [actionLayers indexOfObject:layer];
 	if (touchedIndex != NSNotFound) {
-		[[actions objectAtIndex:touchedIndex] invoke:self];
+		CGRect frame = layer.frame;
+		NSValue *v = [NSValue valueWithCGRect:frame];
+		[[actions objectAtIndex:touchedIndex] invoke:v];
 		
 		highlightedIndex = -1;
 		

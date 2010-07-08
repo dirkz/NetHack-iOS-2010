@@ -56,6 +56,8 @@
 	int clipX;
 	int clipY;
 	
+	UIPopoverController *currentPopover;
+	
 }
 
 @property (readonly) ActionViewController *actionViewController;
@@ -97,6 +99,9 @@
 - (void)handleDirectionTap:(e_direction)direction;
 - (void)handleDirectionDoubleTap:(e_direction)direction;
 
-// utility
+// popover
+
+// dismisses any current popovers and prepares that one
+- (UIPopoverController *)popoverWithController:(UIViewController *)controller;
 
 @end

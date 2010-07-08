@@ -55,6 +55,15 @@
 - (void)invoke:(id)sender {
 	if (invocations.count > 0) {
 		for (NSInvocation *inv in invocations) {
+			if (sender != nil && inv.methodSignature.numberOfArguments == 3) {
+				// if we have a method of the form action:(id)sender and sender is nil
+				// we pass the sender of this method through
+				id value;
+				[inv getArgument:&value atIndex:2];
+				if (!value) {
+					[inv setArgument:&sender atIndex:2];
+				}
+			}
 			[inv invoke];
 		}
 	}

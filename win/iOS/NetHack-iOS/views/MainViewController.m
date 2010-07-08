@@ -48,7 +48,7 @@
 #import "StatusView.h"
 #import "LayeredActionBar.h"
 
-#import "winios.h" // ipad_getpos etc.
+#import "winios.h" // ios_getpos etc.
 
 #include "hack.h" // BUFSZ etc.
 
@@ -128,7 +128,15 @@ enum rotation_lock {
 #pragma mark menus/actions
 
 - (void)inventoryMenuAction:(id)sender {
-	[self presentModalViewController:self.inventoryNavigationController animated:YES];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		UIPopoverController *popover = [self popoverWithController:self.inventoryNavigationController];
+		CGRect rect = [(NSValue *) sender CGRectValue];
+		rect = [self.view convertRect:rect fromView:layeredActionBar];
+		[popover presentPopoverFromRect:rect inView:mapView
+			   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+	} else {
+		[self presentModalViewController:self.inventoryNavigationController animated:YES];
+	}
 }
 
 - (void)infoMenuAction:(id)sender {
@@ -671,7 +679,18 @@ enum rotation_lock {
 	}
 }
 
-#pragma mark utility
+#pragma mark popover
+
+- (UIPopoverController *)popoverWithController:(UIViewController *)controller {
+	if (currentPopover) {
+		if (currentPopover.popoverVisible) {
+			[currentPopover dismissPopoverAnimated:NO];
+		}
+		[currentPopover release];
+	}
+	currentPopover = [[UIPopoverController alloc] initWithContentViewController:controller];
+	return currentPopover;
+}
 
 #pragma mark UIAlertViewDelegate
 
