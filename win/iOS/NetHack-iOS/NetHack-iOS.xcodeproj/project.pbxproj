@@ -325,6 +325,7 @@
 		43EEC67911E5F3E8008129C8 /* Icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EEC67811E5F3E8008129C8 /* Icon_72.png */; };
 		43EEC6E411E60B66008129C8 /* LayeredActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EEC6E311E60B66008129C8 /* LayeredActionBar.m */; };
 		43EEC6F611E60D2C008129C8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EEC6F511E60D2C008129C8 /* QuartzCore.framework */; };
+		43EEC8B211E63E6E008129C8 /* InventoryViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43EEC8B111E63E6E008129C8 /* InventoryViewController_iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -791,6 +792,7 @@
 		43EEC6E211E60B66008129C8 /* LayeredActionBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayeredActionBar.h; sourceTree = "<group>"; };
 		43EEC6E311E60B66008129C8 /* LayeredActionBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayeredActionBar.m; sourceTree = "<group>"; };
 		43EEC6F511E60D2C008129C8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		43EEC8B111E63E6E008129C8 /* InventoryViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InventoryViewController_iPad.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetHack_iOS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -848,6 +850,7 @@
 				2860E32C111B888700E27156 /* AppDelegate_iPad.m */,
 				2860E32D111B888700E27156 /* MainWindow_iPad.xib */,
 				43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */,
+				43EEC8B111E63E6E008129C8 /* InventoryViewController_iPad.xib */,
 			);
 			path = iPad;
 			sourceTree = "<group>";
@@ -1604,6 +1607,7 @@
 				4380EDD911E3955A00742473 /* Icon.png in Resources */,
 				43EEC66311E5EE24008129C8 /* MainViewController_iPad.xib in Resources */,
 				43EEC67911E5F3E8008129C8 /* Icon_72.png in Resources */,
+				43EEC8B211E63E6E008129C8 /* InventoryViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

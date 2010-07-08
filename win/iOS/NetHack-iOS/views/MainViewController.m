@@ -209,7 +209,13 @@ enum rotation_lock {
 
 - (InventoryViewController *)inventoryViewController {
 	if (!inventoryViewController) {
-		inventoryViewController = [[InventoryViewController alloc] initWithNibName:@"InventoryViewController" bundle:nil];
+		NSString *nibName = nil;
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			nibName = @"InventoryViewController_iPad";
+		} else {
+			nibName = @"InventoryViewController";
+		}
+		inventoryViewController = [[InventoryViewController alloc] initWithNibName:nibName bundle:nil];
 	}
 	return inventoryViewController;
 }

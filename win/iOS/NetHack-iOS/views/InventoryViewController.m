@@ -71,27 +71,33 @@
 	}
 }
 
+-(void)conditionallyDismissModalViewControllerAnimated:(BOOL)animated {
+	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+		[self dismissModalViewControllerAnimated:animated];
+	}
+}
+
 - (IBAction)editModeAction:(id)sender {
 	self.tableView.editing = ! self.tableView.editing;
 }
 
 - (IBAction)dropAction:(id)sender {
-	[self dismissModalViewControllerAnimated:NO];
+	[self conditionallyDismissModalViewControllerAnimated:NO];
 	[[NhEventQueue instance] addKey:'D'];
 }
 
 - (IBAction)pickupAction:(id)sender {
-	[self dismissModalViewControllerAnimated:NO];
+	[self conditionallyDismissModalViewControllerAnimated:NO];
 	[[NhEventQueue instance] addKey:','];
 }
 
 - (IBAction)whatsHereAction:(id)sender {
-	[self dismissModalViewControllerAnimated:NO];
+	[self conditionallyDismissModalViewControllerAnimated:NO];
 	[[NhEventQueue instance] addKey:':'];
 }
 
 - (IBAction)disrobeAction:(id)sender {
-	[self dismissModalViewControllerAnimated:NO];
+	[self conditionallyDismissModalViewControllerAnimated:NO];
 	[[NhEventQueue instance] addKey:'A'];
 }
 
