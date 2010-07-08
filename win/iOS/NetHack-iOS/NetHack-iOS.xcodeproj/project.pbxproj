@@ -321,6 +321,8 @@
 		4380EDC311E3944300742473 /* dropdownButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC011E3944300742473 /* dropdownButton.png */; };
 		4380EDC411E3944300742473 /* petmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC111E3944300742473 /* petmark.png */; };
 		4380EDD911E3955A00742473 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDD811E3955A00742473 /* Icon.png */; };
+		43EEC66311E5EE24008129C8 /* MainViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */; };
+		43EEC67911E5F3E8008129C8 /* Icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EEC67811E5F3E8008129C8 /* Icon_72.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -782,6 +784,8 @@
 		4380EDC011E3944300742473 /* dropdownButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropdownButton.png; sourceTree = "<group>"; };
 		4380EDC111E3944300742473 /* petmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petmark.png; sourceTree = "<group>"; };
 		4380EDD811E3955A00742473 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController_iPad.xib; sourceTree = "<group>"; };
+		43EEC67811E5F3E8008129C8 /* Icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_72.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NetHack_iOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NetHack_iOS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -818,8 +822,8 @@
 				4380ED5411E38FF900742473 /* ExtendedCommandsController.xib */,
 				4380ED5511E38FF900742473 /* InventoryViewController.xib */,
 				4380ED5611E38FF900742473 /* ItemViewController.xib */,
-				4380ED5711E38FF900742473 /* MainViewController.xib */,
 				4380ED5811E38FF900742473 /* MainWindow_iPhone.xib */,
+				4380ED5711E38FF900742473 /* MainViewController.xib */,
 				4380ED5911E38FF900742473 /* MenuViewController.xib */,
 				4380ED5A11E38FF900742473 /* QuestionViewController.xib */,
 				4380ED5B11E38FF900742473 /* TextInputController.xib */,
@@ -833,9 +837,11 @@
 		2860E32A111B888700E27156 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				43EEC67811E5F3E8008129C8 /* Icon_72.png */,
 				2860E32B111B888700E27156 /* AppDelegate_iPad.h */,
 				2860E32C111B888700E27156 /* AppDelegate_iPad.m */,
 				2860E32D111B888700E27156 /* MainWindow_iPad.xib */,
+				43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */,
 			);
 			path = iPad;
 			sourceTree = "<group>";
@@ -1587,6 +1593,8 @@
 				4380EDC311E3944300742473 /* dropdownButton.png in Resources */,
 				4380EDC411E3944300742473 /* petmark.png in Resources */,
 				4380EDD911E3955A00742473 /* Icon.png in Resources */,
+				43EEC66311E5EE24008129C8 /* MainViewController_iPad.xib in Resources */,
+				43EEC67911E5F3E8008129C8 /* Icon_72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

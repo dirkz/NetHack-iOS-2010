@@ -8,8 +8,11 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon</string>
+		<string>Icon_72</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.dirkz.inethack</string>
 	<key>CFBundleInfoDictionaryVersion</key>

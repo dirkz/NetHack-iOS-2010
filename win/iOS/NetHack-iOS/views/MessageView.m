@@ -30,7 +30,11 @@
 @implementation MessageView
 
 - (void)setup {
-	self.font = [self.font fontWithSize:14.0f];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		self.font = [self.font fontWithSize:16.0f];
+	} else {
+		self.font = [self.font fontWithSize:14.0f];
+	}
 	originalHeight = self.frame.size.height;
 }
 
@@ -46,11 +50,12 @@
 }
 
 - (void)resize {
+	CGFloat maxHeight = self.superview.bounds.size.height/2-20.0f;
 	CGSize contentSize = self.contentSize;
 	CGRect frame = self.frame;
 	frame.size.height = contentSize.height;
-	if (frame.size.height > self.superview.bounds.size.height/3) {
-		frame.size.height = self.superview.bounds.size.height/3;
+	if (frame.size.height > maxHeight) {
+		frame.size.height = maxHeight;
 	}
 	self.frame = frame;
 }

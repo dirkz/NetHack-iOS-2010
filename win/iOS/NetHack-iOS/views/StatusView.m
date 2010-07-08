@@ -47,7 +47,12 @@
 
 - (void)drawRect:(CGRect)rect {
 	float space = 5.0f;
-	UIFont *font = [UIFont systemFontOfSize:13.0f];
+	UIFont *font = nil;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		font = [UIFont systemFontOfSize:16.0f];
+	} else {
+		font = [UIFont systemFontOfSize:13.0f];
+	}
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 	CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
 	CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
@@ -62,8 +67,10 @@
 	p.y += size.height;
 	
 	// make font smaller if a lot to display
-	if (self.bounds.size.width <= 320.0f && (status.hungryState != 1 || strlen(status.status))) {
-		font = [UIFont systemFontOfSize:10.0f];
+	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+		if (self.bounds.size.width <= 320.0f && (status.hungryState != 1 || strlen(status.status))) {
+			font = [UIFont systemFontOfSize:10.0f];
+		}
 	}
 	
 	size = [bot2 drawAtPoint:p withFont:font];

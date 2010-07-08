@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class MainViewController;
+
 @interface AppDelegate_iPhone : NSObject <UIApplicationDelegate> {
 
     UIWindow *window;
