@@ -419,6 +419,12 @@ char ios_yn_function(const char *question, const char *choices, CHAR_P def) {
 	if (!strcmp("Really save?", question) || !strcmp("Overwrite the old file?", question)) {
 		return 'y';
 	}
+#if TARGET_IPHONE_SIMULATOR
+	// since you mostly don't need to keep it in wiz mode ...
+	if (!strcmp("Do you want to keep the save file?", question)) {
+		return 'n';
+	}
+#endif
 	ios_putstr(WIN_MESSAGE, 0, question);
 	[[MainViewController instance] refreshMessages];
 	NhEvent *e = nil;
