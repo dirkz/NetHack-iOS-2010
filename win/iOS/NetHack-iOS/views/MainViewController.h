@@ -47,9 +47,7 @@
 	IBOutlet UIScrollView *actionScrollView;
 	
 	NhYnQuestion *currentYnQuestion;
-	ActionViewController *actionViewController;
 	InventoryViewController *inventoryViewController;
-	MenuViewController *menuViewController;
 	
 	BOOL directionQuestion;
 	
@@ -71,7 +69,7 @@
 
 - (IBAction)toggleMessageView:(id)sender;
 
-// window API
+#pragma mark window API
 
 - (void)handleDirectionQuestion:(NhYnQuestion *)q;
 - (void)showYnQuestion:(NhYnQuestion *)q;
@@ -93,13 +91,13 @@
 - (void)updateInventory;
 - (void)getLine;
 
-// touch handling
+#pragma mark touch handling
 
 - (void)handleMapTapTileX:(int)x y:(int)y forLocation:(CGPoint)p inView:(UIView *)view;
 - (void)handleDirectionTap:(e_direction)direction;
 - (void)handleDirectionDoubleTap:(e_direction)direction;
 
-// popover
+#pragma mark popover
 
 // dismisses any current popovers and prepares that one
 - (UIPopoverController *)popoverWithController:(UIViewController *)controller;
@@ -107,5 +105,8 @@
 // displays the given controller in a popover,
 // treating the sender (from an LayeredActionBar action) as CGRect
 - (void)displayPopoverWithController:(UIViewController *)controller sender:(id)sender;
+
+#pragma mark (Layered)ActionBar
+-(void)placeActionBar:(UIView *)actionBar;
 
 @end

@@ -3,12 +3,16 @@
 //
 
 #ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-    #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #endif
 
 #if DLOG
-#    define DLog(...) NSLog(__VA_ARGS__)
+#define DLog(...) NSLog(__VA_ARGS__)
+#define DRect(s, r) NSLog(s@" %.0f,%.0f %.0fx%.0f", r.origin.x, r.origin.y, r.size.width, r.size.height);
+#define DPoint(s, p) NSLog(s@" %.0f,%.0f", p.x, p.y);
+#define DSize(s, p) NSLog(s@" %.0f,%.0f", p.width, p.height);
+#
 #else
-#    define DLog(...) /* */
-#endif
+#define DLog(...) /* */
+#endif // DLOG

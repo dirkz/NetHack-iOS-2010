@@ -103,6 +103,9 @@ enum rotation_lock {
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	[self clipAround];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self placeActionBar:layeredActionBar];
+	}
 	[mapView setNeedsDisplay];
 	[messageView scrollToBottom];
 }
@@ -148,7 +151,8 @@ enum rotation_lock {
 						 [NhCommand commandWithTitle:"Explore mode" key:'X'],
 						 [NhCommand commandWithTitle:"Call Monster" key:'C'],
 						 nil];
-	self.actionViewController.actions = commands;
+	ActionViewController *actionViewController = self.actionViewController;
+	actionViewController.actions = commands;
 	[self presentModalViewController:actionViewController animated:YES];
 }
 
@@ -175,7 +179,8 @@ enum rotation_lock {
 						 [NhCommand commandWithTitle:"Create Monster" key:C('g')],
 						 [NhCommand commandWithTitle:"Show Attributes" key:C('x')],
 						 nil];
-	self.actionViewController.actions = commands;
+	ActionViewController *actionViewController = self.actionViewController;
+	actionViewController.actions = commands;
 	[self presentModalViewController:actionViewController animated:YES];
 }
 
@@ -185,7 +190,8 @@ enum rotation_lock {
 						 [NhCommand commandWithTitle:"Force Attack" key:'F'],
 						 [NhCommand commandWithTitle:"Teleport" key:C('T')],
 						 nil];
-	self.actionViewController.actions = commands;
+	ActionViewController *actionViewController = self.actionViewController;
+	actionViewController.actions = commands;
 	[self presentModalViewController:actionViewController animated:YES];
 }
 
@@ -201,10 +207,7 @@ enum rotation_lock {
 #pragma mark view controllers
 
 - (ActionViewController *)actionViewController {
-	if (!actionViewController) {
-		actionViewController = [[ActionViewController alloc] initWithNibName:@"ActionViewController" bundle:nil];
-	}
-	return actionViewController;
+	return [[[ActionViewController alloc] initWithNibName:@"ActionViewController" bundle:nil] autorelease];
 }
 
 - (InventoryViewController *)inventoryViewController {
@@ -225,10 +228,7 @@ enum rotation_lock {
 }
 
 - (MenuViewController *)menuViewController {
-	if (!menuViewController) {
-		menuViewController = [[MenuViewController alloc] initWithNibName:@"MenuViewController" bundle:nil];
-	}
-	return menuViewController;
+	return [[[MenuViewController alloc] initWithNibName:@"MenuViewController" bundle:nil] autorelease];
 }
 
 - (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
@@ -270,6 +270,7 @@ enum rotation_lock {
 
 			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 				[layeredActionBar setActions:toolbarItems];
+				[self placeActionBar:layeredActionBar];
 			} else {
 				[actionBar setActions:toolbarItems];
 				[actionScrollView setContentSize:actionBar.frame.size];
@@ -470,7 +471,8 @@ enum rotation_lock {
 	if (![NSThread isMainThread]) {
 		[self performSelectorOnMainThread:@selector(showMenuWindow:) withObject:w waitUntilDone:NO];
 	} else {
-		self.menuViewController.menuWindow = w;
+		MenuViewController *menuViewController = self.menuViewController;
+		menuViewController.menuWindow = w;
 		[self presentModalViewController:menuViewController animated:YES];
 	}
 }
@@ -577,7 +579,8 @@ enum rotation_lock {
 			for (Action *action in commands) {
 				[action addTarget:self action:@selector(endDirectionQuestion) arg:nil];
 			}
-			self.actionViewController.actions = commands;
+			ActionViewController *actionViewController = self.actionViewController;
+			actionViewController.actions = commands;
 			// show direction commands
 			[self presentModalViewController:actionViewController animated:YES];
 		} else {
@@ -594,7 +597,8 @@ enum rotation_lock {
 		if (u.ux == x && u.uy == y) {
 			// tap on self
 			NSArray *commands = [NhCommand allCurrentCommands];
-			self.actionViewController.actions = commands;
+			ActionViewController *actionViewController = self.actionViewController;
+			actionViewController.actions = commands;
 			[self presentModalViewController:actionViewController animated:YES];
 		} else {
 			coord delta = CoordMake(u.ux-x, u.uy-y);
@@ -602,7 +606,8 @@ enum rotation_lock {
 				// tap on adjacent tile
 				NSArray *commands = [NhCommand allCommandsForAdjacentTile:CoordMake(x, y)];
 				if (commands.count > 0) {
-					self.actionViewController.actions = commands;
+					ActionViewController *actionViewController = self.actionViewController;
+					actionViewController.actions = commands;
 					[self presentModalViewController:actionViewController animated:YES];
 				} else {
 					// movement
@@ -666,7 +671,8 @@ enum rotation_lock {
 				} else if (mask & D_LOCKED) {
 					NSArray *commands = [NhCommand allCommandsForAdjacentTile:tp];
 					if (commands.count > 0) {
-						self.actionViewController.actions = commands;
+						ActionViewController *actionViewController = self.actionViewController;
+						actionViewController.actions = commands;
 						[self presentModalViewController:actionViewController animated:YES];
 					}
 				} else {
@@ -703,10 +709,27 @@ enum rotation_lock {
 
 - (void)displayPopoverWithController:(UIViewController *)controller sender:(id)sender {
 	UIPopoverController *popover = [self popoverWithController:controller];
+	[popover setPopoverContentSize:popover.contentViewController.contentSizeForViewInPopover];
 	CGRect rect = [(NSValue *) sender CGRectValue];
 	rect = [self.view convertRect:rect fromView:layeredActionBar];
 	[popover presentPopoverFromRect:rect inView:mapView
 		   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+#pragma mark (Layered)ActionBar
+
+-(void)placeActionBar:(UIView *)bar {
+	CGSize padding = CGSizeMake(20.0f, 20.0f);
+	CGSize allBounds = self.view.bounds.size;
+	CGSize maxSize = CGSizeMake(allBounds.width, allBounds.height-2*padding.height);
+	CGSize actionBarSize = [bar sizeThatFits:maxSize];
+	if (actionBarSize.height > maxSize.height) {
+		actionBarSize.height = maxSize.height;
+	}
+	CGPoint origin = CGPointMake(self.view.bounds.size.width - actionBarSize.width - padding.width,
+								 (self.view.bounds.size.height - actionBarSize.height)/2 - padding.height);
+	CGRect frame = CGRectMake(origin.x, origin.y, actionBarSize.width, actionBarSize.height);
+	bar.frame = frame;
 }
 
 #pragma mark UIAlertViewDelegate
@@ -722,7 +745,7 @@ enum rotation_lock {
 	}
 }
 
-#pragma mark misc
+#pragma mark memory
 
 - (void)dealloc {
     [super dealloc];

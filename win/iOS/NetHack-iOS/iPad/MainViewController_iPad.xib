@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="5"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -45,18 +45,6 @@
 					<object class="IBUIView" id="253979049">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<object class="NSMutableArray" key="NSSubviews">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIScrollView" id="547343068">
-								<reference key="NSNextResponder" ref="253979049"/>
-								<int key="NSvFlags">297</int>
-								<string key="NSFrame">{{684, 169}, {64, 566}}</string>
-								<reference key="NSSuperview" ref="253979049"/>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<bool key="IBUIMultipleTouchEnabled">YES</bool>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-							</object>
-						</object>
 						<string key="NSFrameSize">{768, 961}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -101,6 +89,15 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="IBUIBackgroundColor" ref="723505033"/>
 						<int key="IBUIContentMode">3</int>
+						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+					</object>
+					<object class="IBUIScrollView" id="547343068">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">297</int>
+						<string key="NSFrame">{{684, 169}, {64, 566}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<object class="IBUIButton" id="795859972">
@@ -223,6 +220,7 @@
 							<reference ref="795859972"/>
 							<reference ref="359217881"/>
 							<reference ref="253979049"/>
+							<reference ref="547343068"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -257,14 +255,13 @@
 						<reference key="object" ref="253979049"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="547343068"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">17</int>
 						<reference key="object" ref="547343068"/>
-						<reference key="parent" ref="253979049"/>
+						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
 			</object>
@@ -291,7 +288,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MainViewController</string>
 					<string>UIResponder</string>
-					<string>{{689, 58}, {768, 1024}}</string>
+					<string>{{611, 50}, {783, 806}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>LayeredActionBar</string>
 					<string>{{329, 961}, {240, 128}}</string>

@@ -228,6 +228,8 @@
 	}
 }
 
+#pragma mark memory
+
 - (void)dealloc {
 	[actions release];
     [super dealloc];

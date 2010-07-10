@@ -11,7 +11,7 @@
 #import "LayeredActionBar.h"
 #import "Action.h"
 
-static const CGSize s_actionTileSize  = { 64, 40 };
+static const CGSize s_actionItemSize  = { 72, 40 };
 
 #define kTextColor UIColor.whiteColor.CGColor
 #define kBackgroundColor UIColor.blackColor.CGColor
@@ -36,13 +36,14 @@ static const CGSize s_actionTileSize  = { 64, 40 };
 
 - (id)init {
 	if (self = [super init]) {
-		self.opacity       = 0.7f;
+		self.opaque = YES;
+		self.opacity = 1.0f;
 		self.isHighlighted = NO;
-		self.borderColor   = UIColor.whiteColor.CGColor;
-		self.borderWidth   = 0.5;
-		self.cornerRadius  = 5;
-		self.bounds        = (CGRect){CGPointZero, s_actionTileSize};
-		self.anchorPoint   = CGPointZero;
+		self.borderColor = UIColor.whiteColor.CGColor;
+		self.borderWidth = 0.5;
+		self.cornerRadius = 5;
+		self.bounds = (CGRect){CGPointZero, s_actionItemSize};
+		self.anchorPoint = CGPointZero;
 		[[self animationForKey:@"BackgroundColor"] setDuration:0.1];
 	}
 	return self;
@@ -116,6 +117,13 @@ static const CGSize s_actionTileSize  = { 64, 40 };
 	actions = [as retain];
 	highlightedIndex = -1;
 	[self updateLayers];
+}
+
+// given size is ignored!
+- (CGSize)sizeThatFits:(CGSize)size {
+	CGSize s = s_actionItemSize;
+	s.height = actions.count * s_actionItemSize.height;
+	return s;
 }
 
 #pragma mark touch handling
