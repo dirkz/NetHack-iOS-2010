@@ -71,6 +71,10 @@
 	}
 }
 
+- (CGSize)contentSizeForViewInPopover {
+	return [[MainViewController instance] maxPopoverSize];
+}
+
 -(void)conditionallyDismissModalViewControllerAnimated:(BOOL)animated {
 	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
 		[self dismissModalViewControllerAnimated:animated];

@@ -57,6 +57,18 @@
 	[self dismissModalViewControllerAnimated:NO];
 }
 
+#pragma mark popover
+
+- (CGSize)contentSizeForViewInPopover {
+	return CGSizeMake(600.0f, items.count * 44.0f);
+}
+
+#pragma mark properties
+
+- (NSArray *)items {
+	return items;
+}
+
 #pragma mark -
 #pragma mark View lifecycle
 

@@ -47,6 +47,10 @@
 	[self dismissModalViewControllerAnimated:NO];
 }
 
+- (CGSize)contentSizeForViewInPopover {
+	return CGSizeMake(600.0f, actions.count * 44.0f);
+}
+
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

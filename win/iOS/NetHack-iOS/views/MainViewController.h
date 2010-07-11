@@ -31,6 +31,8 @@
 @class InventoryViewController;
 @class NhMenuWindow;
 @class MenuViewController;
+@class TileSetViewController;
+@class ToolsViewController;
 @class MessageView;
 @class MapView;
 @class ActionBar;
@@ -68,9 +70,13 @@
 @property (readonly) UINavigationController *inventoryNavigationController;
 
 @property (readonly) MenuViewController *menuViewController;
+@property (readonly) TileSetViewController *tileSetViewController;
+@property (readonly) ToolsViewController *toolsViewController;
 
 // inventory currently shown?
 @property (readonly) BOOL isInventoryShown;
+
+@property (readonly) CGSize maxPopoverSize;
 
 + (MainViewController *) instance;
 
@@ -99,6 +105,11 @@
 - (void)clipAroundX:(int)x y:(int)y;
 - (void)updateInventory;
 - (void)getLine;
+
+#pragma mark misc UI
+
+// sort of like messages from the core, but from the UI :)
+- (void)showMessage:(NSString *)msg;
 
 #pragma mark touch handling
 

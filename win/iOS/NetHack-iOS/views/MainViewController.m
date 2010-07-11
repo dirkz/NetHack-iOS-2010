@@ -162,15 +162,25 @@ enum rotation_lock {
 }
 
 - (void)tilesetMenuAction:(id)sender {
-	TileSetViewController *tilesetViewController = [[TileSetViewController alloc]
-													initWithNibName:@"TileSetViewController" bundle:nil];
-	[self presentModalViewController:tilesetViewController animated:YES];
+	TileSetViewController *tilesetViewController = self.tileSetViewController;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self displayPopoverWithController:tilesetViewController sender:sender];
+	} else {
+		[self presentModalViewController:tilesetViewController animated:YES];
+	}
 }
 
 - (void)toolsMenuAction:(id)sender {
-	ToolsViewController *toolsViewController = [[ToolsViewController alloc]
-												initWithNibName:@"ToolsViewController" bundle:nil];
-	[self presentModalViewController:toolsViewController animated:YES];
+	ToolsViewController *toolsViewController = self.toolsViewController;
+	if (toolsViewController.items.count > 0) {
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			[self displayPopoverWithController:toolsViewController sender:sender];
+		} else {
+			[self presentModalViewController:toolsViewController animated:YES];
+		}
+	} else {
+		
+	}
 }
 
 - (void)wizardMenuAction:(id)sender {
@@ -242,6 +252,26 @@ enum rotation_lock {
 
 - (MenuViewController *)menuViewController {
 	return [[[MenuViewController alloc] initWithNibName:@"MenuViewController" bundle:nil] autorelease];
+}
+
+- (TileSetViewController *)tileSetViewController {
+	NSString *nibName = nil;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		nibName = @"TileSetViewController_iPad";
+	} else {
+		nibName = @"TileSetViewController";
+	}
+	return [[[TileSetViewController alloc] initWithNibName:nibName bundle:nil] autorelease];
+}
+
+- (ToolsViewController *)toolsViewController {
+	NSString *nibName = nil;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		nibName = @"ToolsViewController_iPad";
+	} else {
+		nibName = @"ToolsViewController";
+	}
+	return [[[ToolsViewController alloc] initWithNibName:nibName bundle:nil] autorelease];
 }
 
 - (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
@@ -536,6 +566,11 @@ enum rotation_lock {
 	}
 }
 
+#pragma mark misc UI
+
+- (void)showMessage:(NSString *)msg {
+}
+
 #pragma mark touch handling
 
 - (int)keyFromDirection:(e_direction)d {
@@ -708,6 +743,13 @@ enum rotation_lock {
 }
 
 #pragma mark popover
+
+- (CGSize)maxPopoverSize {
+	CGRect bounds = self.view.bounds;
+	bounds.size.height /= 2;
+	bounds.size.width = 300.0f;
+	return bounds.size;
+}
 
 - (BOOL)isInventoryShown {
 	return inventoryViewController && currentPopover && currentPopover.popoverVisible;

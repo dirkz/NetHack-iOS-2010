@@ -31,6 +31,7 @@
 
 }
 
+@property (nonatomic, readonly) NSArray *items;
 @property (nonatomic, readonly) UITableView *tableView;
 
 - (IBAction)cancelAction:(id)sender;

@@ -322,6 +322,8 @@
 		4380EDC411E3944300742473 /* petmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDC111E3944300742473 /* petmark.png */; };
 		4380EDD911E3955A00742473 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4380EDD811E3955A00742473 /* Icon.png */; };
 		438CC05E11E9C27C00ED9302 /* ActionViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438CC05D11E9C27C00ED9302 /* ActionViewController_iPad.xib */; };
+		438CC1AA11EA1AB000ED9302 /* TileSetViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438CC1A911EA1AB000ED9302 /* TileSetViewController_iPad.xib */; };
+		438CC1BB11EA1CFE00ED9302 /* ToolsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 438CC1BA11EA1CFE00ED9302 /* ToolsViewController_iPad.xib */; };
 		43EEC66311E5EE24008129C8 /* MainViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */; };
 		43EEC67911E5F3E8008129C8 /* Icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EEC67811E5F3E8008129C8 /* Icon_72.png */; };
 		43EEC6E411E60B66008129C8 /* LayeredActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 43EEC6E311E60B66008129C8 /* LayeredActionBar.m */; };
@@ -789,6 +791,8 @@
 		4380EDC111E3944300742473 /* petmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = petmark.png; sourceTree = "<group>"; };
 		4380EDD811E3955A00742473 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		438CC05D11E9C27C00ED9302 /* ActionViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionViewController_iPad.xib; sourceTree = "<group>"; };
+		438CC1A911EA1AB000ED9302 /* TileSetViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TileSetViewController_iPad.xib; sourceTree = "<group>"; };
+		438CC1BA11EA1CFE00ED9302 /* ToolsViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToolsViewController_iPad.xib; sourceTree = "<group>"; };
 		43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController_iPad.xib; sourceTree = "<group>"; };
 		43EEC67811E5F3E8008129C8 /* Icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon_72.png; sourceTree = "<group>"; };
 		43EEC6E211E60B66008129C8 /* LayeredActionBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayeredActionBar.h; sourceTree = "<group>"; };
@@ -854,6 +858,8 @@
 				43EEC66211E5EE24008129C8 /* MainViewController_iPad.xib */,
 				43EEC8B111E63E6E008129C8 /* InventoryViewController_iPad.xib */,
 				438CC05D11E9C27C00ED9302 /* ActionViewController_iPad.xib */,
+				438CC1A911EA1AB000ED9302 /* TileSetViewController_iPad.xib */,
+				438CC1BA11EA1CFE00ED9302 /* ToolsViewController_iPad.xib */,
 			);
 			path = iPad;
 			sourceTree = "<group>";
@@ -1612,6 +1618,8 @@
 				43EEC67911E5F3E8008129C8 /* Icon_72.png in Resources */,
 				43EEC8B211E63E6E008129C8 /* InventoryViewController_iPad.xib in Resources */,
 				438CC05E11E9C27C00ED9302 /* ActionViewController_iPad.xib in Resources */,
+				438CC1AA11EA1AB000ED9302 /* TileSetViewController_iPad.xib in Resources */,
+				438CC1BB11EA1CFE00ED9302 /* ToolsViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
