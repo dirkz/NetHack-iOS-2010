@@ -154,7 +154,11 @@ enum rotation_lock {
 						 nil];
 	ActionViewController *actionViewController = self.actionViewController;
 	actionViewController.actions = commands;
-	[self presentModalViewController:actionViewController animated:YES];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self displayPopoverWithController:actionViewController sender:sender];
+	} else {
+		[self presentModalViewController:actionViewController animated:YES];
+	}
 }
 
 - (void)tilesetMenuAction:(id)sender {
@@ -208,7 +212,11 @@ enum rotation_lock {
 #pragma mark view controllers
 
 - (ActionViewController *)actionViewController {
-	return [[[ActionViewController alloc] initWithNibName:@"ActionViewController" bundle:nil] autorelease];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		return [[[ActionViewController alloc] initWithNibName:@"ActionViewController_iPad" bundle:nil] autorelease];
+	} else {
+		return [[[ActionViewController alloc] initWithNibName:@"ActionViewController" bundle:nil] autorelease];
+	}
 }
 
 - (InventoryViewController *)inventoryViewController {
