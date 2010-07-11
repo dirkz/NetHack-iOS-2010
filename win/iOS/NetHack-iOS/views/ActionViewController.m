@@ -83,6 +83,8 @@
 	[self dismissModalViewControllerAnimated:NO];
 }
 
+#pragma mark memory
+
 - (void)dealloc {
     [super dealloc];
 }
