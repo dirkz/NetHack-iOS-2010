@@ -121,6 +121,7 @@
 }
 
 - (void)dealloc {
+	DLog(@"dealloc %@", self);
 	[inventory release];
     [super dealloc];
 }

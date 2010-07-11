@@ -48,6 +48,7 @@
 	
 	NhYnQuestion *currentYnQuestion;
 	InventoryViewController *inventoryViewController;
+	UINavigationController *inventoryNavigationController;
 	
 	BOOL directionQuestion;
 	
@@ -59,9 +60,17 @@
 }
 
 @property (readonly) ActionViewController *actionViewController;
+
+// cached!
 @property (readonly) InventoryViewController *inventoryViewController;
+
+// cached!
 @property (readonly) UINavigationController *inventoryNavigationController;
+
 @property (readonly) MenuViewController *menuViewController;
+
+// inventory currently shown?
+@property (readonly) BOOL isInventoryShown;
 
 + (MainViewController *) instance;
 

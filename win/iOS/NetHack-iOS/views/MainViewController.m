@@ -132,6 +132,7 @@ enum rotation_lock {
 
 - (void)inventoryMenuAction:(id)sender {
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self.inventoryNavigationController popToRootViewControllerAnimated:NO];
 		[self displayPopoverWithController:self.inventoryNavigationController sender:sender];
 	} else {
 		[self presentModalViewController:self.inventoryNavigationController animated:YES];
@@ -224,7 +225,11 @@ enum rotation_lock {
 }
 
 - (UINavigationController *)inventoryNavigationController {
-	return [[[UINavigationController alloc] initWithRootViewController:self.inventoryViewController] autorelease];
+	if (!inventoryNavigationController) {
+		inventoryNavigationController = [[UINavigationController alloc]
+										 initWithRootViewController:self.inventoryViewController];
+	}
+	return inventoryNavigationController;
 }
 
 - (MenuViewController *)menuViewController {
@@ -495,7 +500,7 @@ enum rotation_lock {
 	if (![NSThread isMainThread]) {
 		[self performSelectorOnMainThread:@selector(updateInventory) withObject:nil waitUntilDone:NO];
 	} else {
-		if (inventoryViewController) {
+		if (self.isInventoryShown) {
 			[self.inventoryViewController updateInventory];
 		}
 	}
@@ -695,6 +700,10 @@ enum rotation_lock {
 }
 
 #pragma mark popover
+
+- (BOOL)isInventoryShown {
+	return inventoryViewController && currentPopover && currentPopover.popoverVisible;
+}
 
 - (UIPopoverController *)popoverWithController:(UIViewController *)controller {
 	if (currentPopover) {
