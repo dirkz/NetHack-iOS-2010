@@ -15,44 +15,35 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 
 #define kTextColor UIColor.whiteColor.CGColor
 #define kBackgroundColor UIColor.blackColor.CGColor
-#define kHighlightColor UIColor.lightGrayColor.CGColor
-#define kBackgroundColorAnimation @"backgroundColor"
+#define kHighlightColor UIColor.greenColor.CGColor
+#define kBackgroundColorAnimation @"backgroundColorAnimation"
 
 @interface ActionLayer : CALayer {
 	
 	Action *action;
-	BOOL isHighlighted;
 
 }
 
 @property (nonatomic, retain) Action *action;
-@property (nonatomic, assign) BOOL isHighlighted;
 
 @end
 
 @implementation ActionLayer
 
 @synthesize action;
-@synthesize isHighlighted;
 
 - (id)init {
 	if (self = [super init]) {
 		self.opaque = YES;
 		self.opacity = 1.0f;
-		self.isHighlighted = NO;
+		self.backgroundColor = kBackgroundColor;
 		self.borderColor = UIColor.whiteColor.CGColor;
 		self.borderWidth = 0.5;
 		self.cornerRadius = 5;
-		self.bounds = (CGRect){CGPointZero, s_actionItemSize};
+		self.bounds = (CGRect) {CGPointZero, s_actionItemSize};
 		self.anchorPoint = CGPointZero;
-		[[self animationForKey:kBackgroundColorAnimation] setDuration:0.4];
 	}
 	return self;
-}
-
-- (void)setIsHighlighted:(BOOL)flag {
-	isHighlighted = flag;
-	self.backgroundColor = self.isHighlighted ? kHighlightColor : kBackgroundColor;
 }
 
 - (void)drawInContext:(CGContextRef)context {
@@ -68,15 +59,28 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 		UIGraphicsPopContext();
 	}
 }
+
 @end
 
 @implementation LayeredActionBar
 
 @synthesize actions;
 
++ (CAAnimation *) highlightAnimation {
+	CABasicAnimation *theAnimation;
+	theAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+	theAnimation.duration = 0.5f;
+	theAnimation.repeatCount = 0;
+	theAnimation.autoreverses = NO;
+	theAnimation.fromValue = (id) kBackgroundColor;
+	theAnimation.toValue = (id) kHighlightColor;
+	return theAnimation;
+}
+
+
 - (void)setup {
 	actionLayers = [[NSMutableArray alloc] init];
-	self.pagingEnabled  = YES;
+	self.pagingEnabled = YES;
 	self.indicatorStyle = UIScrollViewIndicatorStyleWhite;
 }
 
@@ -94,20 +98,24 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 	return self;
 }
 
+- (CALayer *)layerForAction:(Action *)a {
+	ActionLayer *layer = [[ActionLayer alloc] init];
+	layer.action = a;
+	return layer;
+}
+
 - (void)updateLayers {
 	for(CALayer *layer in actionLayers) {
 		[layer removeFromSuperlayer];
 	}
 	[actionLayers removeAllObjects];
 	for(NSUInteger index = 0; index < self.actions.count; ++index) {
-		ActionLayer *layer = [[ActionLayer alloc] init];
+		CALayer *layer = [self layerForAction:[actions objectAtIndex:index]];
+		[layer setNeedsDisplay];
 		layer.position = CGPointMake(0.0f, layer.bounds.size.height * index);
-		layer.action = [self.actions objectAtIndex:index];
-		layer.isHighlighted = index == highlightedIndex;
+		[actionLayers addObject:layer];
 		[self.layer addSublayer:layer];
 		[layer release];
-		[layer setNeedsDisplay];
-		[actionLayers addObject:layer];
 	}
 }
 
@@ -163,19 +171,8 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 		CGRect frame = layer.frame;
 		NSValue *v = [NSValue valueWithCGRect:frame];
 		[[actions objectAtIndex:touchedIndex] invoke:v];
-		
-		highlightedIndex = -1;
-		
-		CALayer* layer = [actionLayers objectAtIndex:touchedIndex];
-		
-		CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:kBackgroundColorAnimation];
-		[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-		[animation setToValue:(id)kHighlightColor];
-		[animation setAutoreverses:YES];
-		[animation setDuration:0.1];
-		[layer addAnimation:animation forKey:kBackgroundColorAnimation];
+		[layer addAnimation:[LayeredActionBar highlightAnimation] forKey:kBackgroundColorAnimation];
 	}
-	
 	highlightedIndex = -1;
 }
 
