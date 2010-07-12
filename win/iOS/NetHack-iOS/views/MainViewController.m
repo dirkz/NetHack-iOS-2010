@@ -198,7 +198,11 @@ enum rotation_lock {
 						 nil];
 	ActionViewController *actionViewController = self.actionViewController;
 	actionViewController.actions = commands;
-	[self presentModalViewController:actionViewController animated:YES];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self displayPopoverWithController:actionViewController sender:sender];
+	} else {
+		[self presentModalViewController:actionViewController animated:YES];
+	}
 }
 
 - (void)moveMenuAction:(id)sender {
@@ -209,7 +213,11 @@ enum rotation_lock {
 						 nil];
 	ActionViewController *actionViewController = self.actionViewController;
 	actionViewController.actions = commands;
-	[self presentModalViewController:actionViewController animated:YES];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self displayPopoverWithController:actionViewController sender:sender];
+	} else {
+		[self presentModalViewController:actionViewController animated:YES];
+	}
 }
 
 - (UIBarButtonItem *)buttonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
@@ -590,12 +598,12 @@ enum rotation_lock {
 
 	CGFloat duration = 2.0f;
 	CABasicAnimation *theAnimation;
-	theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-	theAnimation.duration=duration;
-	theAnimation.repeatCount=0;
-	theAnimation.autoreverses=NO;
-	theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-	theAnimation.toValue=[NSNumber numberWithFloat:0.0];
+	theAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	theAnimation.duration = duration;
+	theAnimation.repeatCount = 0;
+	theAnimation.autoreverses = NO;
+	theAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+	theAnimation.toValue = [NSNumber numberWithFloat:0.0];
 	[text addAnimation:theAnimation forKey:@"animateOpacity"];
 	
 	[self performSelector:@selector(removeLayer:) withObject:text afterDelay:duration];
