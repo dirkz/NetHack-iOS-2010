@@ -784,7 +784,7 @@ enum rotation_lock {
 
 - (CGSize)maxPopoverSize {
 	CGRect bounds = self.view.bounds;
-	bounds.size.height /= 2;
+	bounds.size.height = bounds.size.height/3*4;
 	bounds.size.width = 300.0f;
 	return bounds.size;
 }

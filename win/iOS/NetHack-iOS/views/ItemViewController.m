@@ -68,6 +68,10 @@
 	detailLabel.text = item.detail;
 }
 
+- (CGSize)contentSizeForViewInPopover {
+	return [[MainViewController instance] maxPopoverSize];
+}
+
 - (NhCommand *)dropOneCommand {
 	return [NhCommand commandWithObject:item title:"Drop one" keys:"d1"];
 }

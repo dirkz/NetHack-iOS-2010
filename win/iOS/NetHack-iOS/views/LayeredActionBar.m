@@ -70,9 +70,9 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 	CABasicAnimation *theAnimation;
 	theAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
 	theAnimation.duration = 0.5f;
-	theAnimation.repeatCount = 0;
+	theAnimation.repeatCount = 1;
 	theAnimation.autoreverses = NO;
-	theAnimation.fromValue = (id) kBackgroundColor;
+//	theAnimation.fromValue = (id) kBackgroundColor;
 	theAnimation.toValue = (id) kHighlightColor;
 	return theAnimation;
 }

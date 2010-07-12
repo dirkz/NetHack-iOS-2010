@@ -59,7 +59,7 @@
 #pragma mark popover
 
 - (CGSize)contentSizeForViewInPopover {
-	return CGSizeMake(600.0f, tilesets.count * 44.0f);
+	return CGSizeMake(300.0f, tilesets.count * 44.0f);
 }
 
 #pragma mark -
