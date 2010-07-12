@@ -16,6 +16,7 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 #define kTextColor UIColor.whiteColor.CGColor
 #define kBackgroundColor UIColor.blackColor.CGColor
 #define kHighlightColor UIColor.lightGrayColor.CGColor
+#define kBackgroundColorAnimation @"backgroundColor"
 
 @interface ActionLayer : CALayer {
 	
@@ -44,7 +45,7 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 		self.cornerRadius = 5;
 		self.bounds = (CGRect){CGPointZero, s_actionItemSize};
 		self.anchorPoint = CGPointZero;
-		[[self animationForKey:@"BackgroundColor"] setDuration:0.1];
+		[[self animationForKey:kBackgroundColorAnimation] setDuration:0.4];
 	}
 	return self;
 }
@@ -167,12 +168,12 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 		
 		CALayer* layer = [actionLayers objectAtIndex:touchedIndex];
 		
-		CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+		CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:kBackgroundColorAnimation];
 		[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
 		[animation setToValue:(id)kHighlightColor];
 		[animation setAutoreverses:YES];
 		[animation setDuration:0.1];
-		[layer addAnimation:animation forKey:@"backgroundColor"];
+		[layer addAnimation:animation forKey:kBackgroundColorAnimation];
 	}
 	
 	highlightedIndex = -1;

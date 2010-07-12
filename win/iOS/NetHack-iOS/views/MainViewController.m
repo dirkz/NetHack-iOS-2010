@@ -22,6 +22,8 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "MainViewController.h"
 #import "NhYnQuestion.h"
 #import "NSString+Z.h"
@@ -179,7 +181,7 @@ enum rotation_lock {
 			[self presentModalViewController:toolsViewController animated:YES];
 		}
 	} else {
-		
+		[self showMessage:@"No tools available"];
 	}
 }
 
@@ -568,7 +570,35 @@ enum rotation_lock {
 
 #pragma mark misc UI
 
+- (void)removeLayer:(CALayer *)layer {
+	[layer removeFromSuperlayer];
+}
+
 - (void)showMessage:(NSString *)msg {
+	static float fontSize = 24.0f;
+	NSString *fontName = [UIFont systemFontOfSize:fontSize].fontName;
+	CATextLayer *text = [CATextLayer layer];
+	text.string = msg;
+	text.font = fontName;
+	text.fontSize = fontSize;
+	text.alignmentMode = kCAAlignmentCenter;
+	text.position = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
+	text.bounds = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width/2, 32.0f);
+	text.opaque = NO;
+	text.opacity = 0.0f;
+	[self.view.layer addSublayer:text];
+
+	CGFloat duration = 2.0f;
+	CABasicAnimation *theAnimation;
+	theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+	theAnimation.duration=duration;
+	theAnimation.repeatCount=0;
+	theAnimation.autoreverses=NO;
+	theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+	theAnimation.toValue=[NSNumber numberWithFloat:0.0];
+	[text addAnimation:theAnimation forKey:@"animateOpacity"];
+	
+	[self performSelector:@selector(removeLayer:) withObject:text afterDelay:duration];
 }
 
 #pragma mark touch handling
