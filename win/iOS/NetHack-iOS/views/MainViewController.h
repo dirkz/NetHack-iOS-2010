@@ -59,6 +59,9 @@
 	
 	UIPopoverController *currentPopover;
 	
+	// old actions the got pushed away
+	NSMutableArray *actionStack;
+	
 }
 
 @property (readonly) ActionViewController *actionViewController;
@@ -129,6 +132,14 @@
 - (void)displayPopoverWithController:(UIViewController *)controller mapViewRect:(CGRect)rect;
 
 #pragma mark (Layered)ActionBar
--(void)placeActionBar:(UIView *)actionBar;
+
+// pushes the given actions into the action bar
+- (void)pushActions:(NSArray *)actions;
+
+// restores the original actions
+- (void)popActions;
+
+// places/aligns the action bar on the screen
+- (void)placeActionBar:(UIView *)actionBar;
 
 @end

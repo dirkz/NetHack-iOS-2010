@@ -438,7 +438,7 @@ enum GroundFlags {
 			[NhCommand commandWithTitle:"Down >" key:'>'],
 			[NhCommand commandWithTitle:"Up <" key:'<'],
 			[NhCommand commandWithTitle:"Self ." key:'.'],
-			[NhCommand commandWithTitle:"Cancel Command" key:'\033'],
+			[NhCommand commandWithTitle:"Cancel" key:'\033'],
 			nil];
 }
 

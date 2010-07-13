@@ -88,6 +88,7 @@ enum rotation_lock {
 - (void)awakeFromNib {
 	[super awakeFromNib]; // responsible for viewDidLoad
 	instance = self;
+	actionStack = [[NSMutableArray alloc] initWithCapacity:2];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)iO {
@@ -297,37 +298,33 @@ enum rotation_lock {
 	if (![NSThread isMainThread]) {
 		[self performSelectorOnMainThread:@selector(nhPoskey) withObject:nil waitUntilDone:NO];
 	} else {
-		// build bottom bar
-		if (actionBar.actions.count == 0) {
-			NSMutableArray *toolbarItems = [NSMutableArray arrayWithCapacity:5];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"Wait" key:'.']];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"Search" keys:"9s"]];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"Redo" key:C('a')]];
-			[toolbarItems addObject:[Action actionWithTitle:@"Inv" target:self action:@selector(inventoryMenuAction:) arg:nil]];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"Fire" key:'f']];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"Alt" key:'x']];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"Cast" key:'Z']];
-			[toolbarItems addObject:[NhCommand commandWithTitle:"#Ext" key:'#']];
-			[toolbarItems addObject:[Action actionWithTitle:@"Info" target:self action:@selector(infoMenuAction:) arg:nil]];
-			[toolbarItems addObject:[Action actionWithTitle:@"Tools" target:self action:@selector(toolsMenuAction:) arg:nil]];
-			[toolbarItems addObject:[Action actionWithTitle:@"Move" target:self action:@selector(moveMenuAction:) arg:nil]];
-			[toolbarItems addObject:[Action actionWithTitle:@"Tiles" target:self action:@selector(tilesetMenuAction:) arg:nil]];
+		static BOOL actionBarInitialized = NO;
+		// build action bar
+		if (!actionBarInitialized) {
+			NSMutableArray *actions = [NSMutableArray arrayWithCapacity:5];
+			[actions addObject:[NhCommand commandWithTitle:"Wait" key:'.']];
+			[actions addObject:[NhCommand commandWithTitle:"Search" keys:"9s"]];
+			[actions addObject:[NhCommand commandWithTitle:"Redo" key:C('a')]];
+			[actions addObject:[Action actionWithTitle:@"Inv" target:self action:@selector(inventoryMenuAction:) arg:nil]];
+			[actions addObject:[NhCommand commandWithTitle:"Fire" key:'f']];
+			[actions addObject:[NhCommand commandWithTitle:"Alt" key:'x']];
+			[actions addObject:[NhCommand commandWithTitle:"Cast" key:'Z']];
+			[actions addObject:[NhCommand commandWithTitle:"#Ext" key:'#']];
+			[actions addObject:[Action actionWithTitle:@"Info" target:self action:@selector(infoMenuAction:) arg:nil]];
+			[actions addObject:[Action actionWithTitle:@"Tools" target:self action:@selector(toolsMenuAction:) arg:nil]];
+			[actions addObject:[Action actionWithTitle:@"Move" target:self action:@selector(moveMenuAction:) arg:nil]];
+			[actions addObject:[Action actionWithTitle:@"Tiles" target:self action:@selector(tilesetMenuAction:) arg:nil]];
 			
 			if (wizard) { // wizard mode
-				[toolbarItems addObject:[Action actionWithTitle:@"Wiz" target:self action:@selector(wizardMenuAction:)]];
+				[actions addObject:[Action actionWithTitle:@"Wiz" target:self action:@selector(wizardMenuAction:)]];
 			}
 
 #if 0 // test
-			[toolbarItems addObject:[CommandButtonItem buttonWithAction:[NhCommand commandWithTitle:"Drop" key:'D']]];
+			[actions addObject:[CommandButtonItem buttonWithAction:[NhCommand commandWithTitle:"Drop" key:'D']]];
 #endif
 
-			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-				[layeredActionBar setActions:toolbarItems];
-				[self placeActionBar:layeredActionBar];
-			} else {
-				[actionBar setActions:toolbarItems];
-				[actionScrollView setContentSize:actionBar.frame.size];
-			}
+			[self pushActions:actions];
+			actionBarInitialized = YES;
 		}
 
 		[self refreshAllViews];
@@ -353,6 +350,13 @@ enum rotation_lock {
 
 - (void)handleDirectionQuestion:(NhYnQuestion *)q {
 	directionQuestion = YES;
+	
+	NSArray *actions = [NhCommand directionCommands];
+	for (Action *action in actions) {
+		[action addTarget:self action:@selector(endDirectionQuestion) arg:nil];
+	}
+	
+	[self pushActions:actions];
 }
 
 // Parses the stuff in [] (without the brackets) and returns the special characters like $-?* etc.
@@ -654,27 +658,14 @@ enum rotation_lock {
 
 - (void)endDirectionQuestion {
 	directionQuestion = NO;
+	[self popActions];
 }
 
 - (void)handleMapTapTileX:(int)x y:(int)y forLocation:(CGPoint)p inView:(UIView *)view {
 	//DLog(@"tap on %d,%d (u %d,%d)", x, y, u.ux, u.uy);
 	if (directionQuestion) {
-		if (u.ux == x && u.uy == y) {
-			// tap on self
-			NSArray *commands = [NhCommand directionCommands];
-			for (Action *action in commands) {
-				[action addTarget:self action:@selector(endDirectionQuestion) arg:nil];
-			}
-			ActionViewController *actionViewController = self.actionViewController;
-			actionViewController.actions = commands;
-			// show direction commands
-			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-				CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
-				[self displayPopoverWithController:actionViewController mapViewRect:hitRect];
-			} else {
-				[self presentModalViewController:actionViewController animated:YES];
-			}
-		} else {
+		if (u.ux != x || u.uy != y) {
+			// taps on self are ignored, they are very amibigious (<,>,. ?)
 			directionQuestion = NO;
 			CGPoint delta = CGPointMake((x-u.ux) * 32.0f, (y-u.uy) * 32.0f);
 			delta.y *= -1;
@@ -832,6 +823,34 @@ enum rotation_lock {
 
 #pragma mark (Layered)ActionBar
 
+- (void)pushActions:(NSArray *)actions {
+	if (layeredActionBar.actions && layeredActionBar.actions.count > 0) {
+		[actionStack addObject:layeredActionBar.actions];
+	}
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[layeredActionBar setActions:actions];
+		[self placeActionBar:layeredActionBar];
+	} else {
+		[actionBar setActions:actions];
+		[actionScrollView setContentSize:actionBar.frame.size];
+	}
+}
+
+- (void)popActions {
+	if (actionStack.count > 0) {
+		NSArray *actions = [[actionStack lastObject] retain];
+		[actionStack removeLastObject];
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			[layeredActionBar setActions:actions];
+			[self placeActionBar:layeredActionBar];
+		} else {
+			[actionBar setActions:actions];
+			[actionScrollView setContentSize:actionBar.frame.size];
+		}
+		[actions release];
+	}
+}
+
 -(void)placeActionBar:(UIView *)bar {
 	CGSize padding = CGSizeMake(20.0f, 20.0f);
 	CGSize allBounds = self.view.bounds.size;
@@ -862,6 +881,7 @@ enum rotation_lock {
 #pragma mark memory
 
 - (void)dealloc {
+	[actionStack release];
     [super dealloc];
 }
 
