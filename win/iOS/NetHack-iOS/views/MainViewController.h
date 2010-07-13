@@ -126,6 +126,8 @@
 // treating the sender (from an LayeredActionBar action) as CGRect
 - (void)displayPopoverWithController:(UIViewController *)controller sender:(id)sender;
 
+- (void)displayPopoverWithController:(UIViewController *)controller mapViewRect:(CGRect)rect;
+
 #pragma mark (Layered)ActionBar
 -(void)placeActionBar:(UIView *)actionBar;
 

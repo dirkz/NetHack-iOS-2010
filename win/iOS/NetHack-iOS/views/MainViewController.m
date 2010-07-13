@@ -668,7 +668,12 @@ enum rotation_lock {
 			ActionViewController *actionViewController = self.actionViewController;
 			actionViewController.actions = commands;
 			// show direction commands
-			[self presentModalViewController:actionViewController animated:YES];
+			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+				CGRect hitRect = CGRectMake(p.x-32.0f, p.y+32.0f, 32.0f, 32.0f);
+				[self displayPopoverWithController:actionViewController mapViewRect:hitRect];
+			} else {
+				[self presentModalViewController:actionViewController animated:YES];
+			}
 		} else {
 			directionQuestion = NO;
 			CGPoint delta = CGPointMake(x*32.0f-u.ux*32.0f, y*32.0f-u.uy*32.0f);
@@ -685,7 +690,12 @@ enum rotation_lock {
 			NSArray *commands = [NhCommand allCurrentCommands];
 			ActionViewController *actionViewController = self.actionViewController;
 			actionViewController.actions = commands;
-			[self presentModalViewController:actionViewController animated:YES];
+			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+				CGRect hitRect = CGRectMake(p.x, p.y, 1.0f, 1.0f);
+				[self displayPopoverWithController:actionViewController mapViewRect:hitRect];
+			} else {
+				[self presentModalViewController:actionViewController animated:YES];
+			}
 		} else {
 			coord delta = CoordMake(u.ux-x, u.uy-y);
 			if (abs(delta.x) <= 1 && abs(delta.y) <= 1 ) {
@@ -809,6 +819,13 @@ enum rotation_lock {
 	[popover setPopoverContentSize:popover.contentViewController.contentSizeForViewInPopover];
 	CGRect rect = [(NSValue *) sender CGRectValue];
 	rect = [self.view convertRect:rect fromView:layeredActionBar];
+	[popover presentPopoverFromRect:rect inView:mapView
+		   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)displayPopoverWithController:(UIViewController *)controller mapViewRect:(CGRect)rect {
+	UIPopoverController *popover = [self popoverWithController:controller];
+	[popover setPopoverContentSize:popover.contentViewController.contentSizeForViewInPopover];
 	[popover presentPopoverFromRect:rect inView:mapView
 		   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
