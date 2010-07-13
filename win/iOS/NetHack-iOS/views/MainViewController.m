@@ -676,7 +676,7 @@ enum rotation_lock {
 			}
 		} else {
 			directionQuestion = NO;
-			CGPoint delta = CGPointMake(x*32.0f-u.ux*32.0f, y*32.0f-u.uy*32.0f);
+			CGPoint delta = CGPointMake((x-u.ux) * 32.0f, (y-u.uy) * 32.0f);
 			delta.y *= -1;
 			//DLog(@"delta %3.2f,%3.2f", delta.x, delta.y);
 			e_direction direction = [ZDirection directionFromEuclideanPointDelta:&delta];
