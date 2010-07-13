@@ -59,6 +59,10 @@ extern const char * const enc_stat[];
 	return self;
 }
 
+- (char *)nameAndTitle {
+	return nameAndTitle;
+}
+
 - (char *)strength {
 	return strength;
 }
@@ -107,11 +111,46 @@ void trimStringInPlace(char *s) {
 	if (!updatedOnce) {
 		return nil;
 	}
-	NSString *bot1 = [NSString stringWithFormat:@"Str:%s Dx:%u Con:%u Int:%u Wis:%u Cha:%u %s",
-					  strength, dexterity, constitution, intelligence, wisdom, charisma, alignment];
+
+	NSString *bot1 = nil;
+	
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		bot1 = [NSString stringWithFormat:@"%s Str:%s Dx:%u Con:%u Int:%u Wis:%u Cha:%u %s",
+				nameAndTitle, strength, dexterity, constitution, intelligence, wisdom, charisma, alignment];
+	} else {
+		bot1 = [NSString stringWithFormat:@"Str:%s Dx:%u Con:%u Int:%u Wis:%u Cha:%u %s",
+				strength, dexterity, constitution, intelligence, wisdom, charisma, alignment];
+	}
+
 	NSString *bot2 = [NSString stringWithFormat:@"%s $%d Hp:%u/%u Pw:%u/%u AC:%d XP:%u T:%u %s",
 					  level, money, hitpoints, maxHitpoints, power, maxPower, ac, xlvl, turn, status];
 	return [NSArray arrayWithObjects:bot1, bot2, nil];
+}
+
+extern const char *rank();
+
+- (void)calculateNameAndTitle {
+	register char *nb;
+	
+	Strcpy(nameAndTitle, plname);
+	if('a' <= nameAndTitle[0] && nameAndTitle[0] <= 'z') nameAndTitle[0] += 'A'-'a';
+	nameAndTitle[10] = 0;
+	Sprintf(nb = eos(nameAndTitle)," the ");
+	
+	if (Upolyd) {
+		char mbot[BUFSZ];
+		int k = 0;
+		
+		Strcpy(mbot, mons[u.umonnum].mname);
+		while(mbot[k] != 0) {
+		    if ((k == 0 || (k > 0 && mbot[k-1] == ' ')) &&
+				'a' <= mbot[k] && mbot[k] <= 'z')
+				mbot[k] += 'A' - 'a';
+		    k++;
+		}
+		strcat(nb = eos(nb), mbot);
+	} else
+		strcat(nb = eos(nb), rank());
 }
 
 - (void)update {
@@ -120,11 +159,13 @@ void trimStringInPlace(char *s) {
 	}
 	updatedOnce = YES;
 
+	[self calculateNameAndTitle];
+	
 	describe_level(level);
 	size_t last = strlen(level)-1;
 	while (level[last] == ' ') {
 		level[last] = '\0';
-		last = strlen(level)-1;
+		last--;
 	}
 	
 	if (ACURR(A_STR) > 18) {

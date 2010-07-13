@@ -59,14 +59,11 @@
 		CGContextRef ctx = UIGraphicsGetCurrentContext();
 		CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
 		CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
-		NSString *bot1 = [NSString stringWithFormat:@"Str:%s Dx:%u Con:%u Int:%u Wis:%u Cha:%u %s",
-						  status.strength, status.dexterity, status.constitution, status.intelligence,
-						  status.wisdom, status.charisma, status.alignment];
+		NSArray *messages = [status messages];
+		NSString *bot1 = [messages objectAtIndex:0];
+		NSString *bot2 = [messages objectAtIndex:1];
 		CGPoint p = CGPointMake(5.0f, 0.0f);
 		CGSize size = [bot1 drawAtPoint:p withFont:font];
-		NSString *bot2 = [NSString stringWithFormat:@"%s $%d Hp:%u/%u Pw:%u/%u AC:%d XP:%u T:%u",
-						  status.level, status.money, status.hitpoints, status.maxHitpoints, status.power,
-						  status.maxPower, status.ac, status.xlvl, status.turn];
 		p.y += size.height;
 		
 		// make font smaller if a lot to display

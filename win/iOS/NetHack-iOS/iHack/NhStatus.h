@@ -26,6 +26,7 @@
 
 @interface NhStatus : NSObject {
 	
+	char nameAndTitle[40];
 	char strength[5];
 	uint dexterity;
 	uint constitution;
@@ -52,6 +53,7 @@
 
 }
 
+@property (nonatomic, readonly) char *nameAndTitle;
 @property (nonatomic, readonly) char *strength;
 @property (nonatomic, readonly) uint dexterity;
 @property (nonatomic, readonly) uint constitution;

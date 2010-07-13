@@ -40,7 +40,10 @@ STATIC_DCL int mrank_sz;
 STATIC_OVL NEARDATA int mrank_sz = 0; /* loaded by max_rank_sz (from u_init) */
 #endif /* OVLB */
 
+#if !TARGET_OS_IPHONE
+#error
 STATIC_DCL const char *NDECL(rank);
+#endif
 
 #ifdef OVL1
 
@@ -91,8 +94,11 @@ rank_of(lev, monnum, female)
 	return ("Player");
 }
 
-
+#if TARGET_OS_IPHONE
+const char *
+#else
 STATIC_OVL const char *
+#endif
 rank()
 {
 	return(rank_of(u.ulevel, Role_switch, flags.female));
