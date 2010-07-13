@@ -669,7 +669,7 @@ enum rotation_lock {
 			actionViewController.actions = commands;
 			// show direction commands
 			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-				CGRect hitRect = CGRectMake(p.x-32.0f, p.y+32.0f, 32.0f, 32.0f);
+				CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
 				[self displayPopoverWithController:actionViewController mapViewRect:hitRect];
 			} else {
 				[self presentModalViewController:actionViewController animated:YES];
@@ -691,7 +691,7 @@ enum rotation_lock {
 			ActionViewController *actionViewController = self.actionViewController;
 			actionViewController.actions = commands;
 			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-				CGRect hitRect = CGRectMake(p.x, p.y, 1.0f, 1.0f);
+				CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
 				[self displayPopoverWithController:actionViewController mapViewRect:hitRect];
 			} else {
 				[self presentModalViewController:actionViewController animated:YES];

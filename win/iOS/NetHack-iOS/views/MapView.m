@@ -328,6 +328,13 @@ static BOOL s_doubleTapsEnabled = NO;
 	*py = roundf(p.y / tileSize.height);
 }
 
+- (CGRect)rectFromTilePositionX:(int)x y:(int)y {
+	CGPoint p = CGPointMake(x * tileSize.width + panOffset.x + clipOffset.x,
+							y * tileSize.height + panOffset.y + clipOffset.y);
+	CGRect r = { p, tileSize };
+	return r;
+}
+
 #pragma mark misc
 
 - (void)dealloc {

@@ -65,6 +65,11 @@
 - (void)moveAlongVector:(CGPoint)d;
 - (void)resetPanOffset;
 - (void)zoom:(CGFloat)d;
+
+// for touch handling
 - (void)tilePositionX:(int *)px y:(int *)py fromPoint:(CGPoint)p;
+
+// for displaying current commands popover
+- (CGRect)rectFromTilePositionX:(int)x y:(int)y;
 
 @end
