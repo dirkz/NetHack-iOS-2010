@@ -28,18 +28,7 @@
 
 #include "hack.h"
 
-static NSArray *g_captions;
-
 @implementation NhCommand
-
-+ (void)initialize {
-	g_captions = [[NSArray alloc] initWithObjects:
-				  kDungeon, // dungeon features (stairs, doors)
-				  kFloor, // objects lying on the floor
-				  kMisc, // everything else
-				  kInternal, // don't mess with that!
-				  nil];
-}
 
 + (id)commandWithTitle:(const char *)t keys:(const char *)c {
 	return [[[self alloc] initWithTitle:t keys:c] autorelease];
@@ -70,21 +59,9 @@ static NSArray *g_captions;
 	return self;
 }
 
-+ (NSArray *)categories {
-	return g_captions;
-}
-
-+ (void)addCommand:(NhCommand *)cmd toCommands:(NSMutableDictionary *)commands key:(NSString *)key {
-	NSArray *keys = [NSArray arrayWithObjects:key, kInternal, nil];
-	for (NSString *k in keys) {
-		NSMutableArray *array = [commands objectForKey:k];
-		if (!array) {
-			array = [NSMutableArray array];
-			[commands setObject:array forKey:k];
-		}
-		if (![array containsObject:cmd]) {
-			[array addObject:cmd];
-		}
++ (void)addCommand:(NhCommand *)cmd toCommands:(NSMutableArray *)commands {
+	if (![commands containsObject:cmd]) {
+		[commands addObject:cmd];
 	}
 }
 
@@ -106,8 +83,8 @@ enum GroundFlags {
 	fDustWritten = 2, // like fEngraved but written in the dust
 };
 
-+ (NSDictionary *)currentCommands {
-	NSMutableDictionary *commands = [NSMutableDictionary dictionary];
++ (NSArray *)currentCommands {
+	NSMutableArray *commands = [NSMutableArray array];
 	int inv = 0;
 	int ground = 0;
 	struct obj *oTinningKit = NULL;
@@ -164,49 +141,49 @@ enum GroundFlags {
 	if ((u.ux == xupstair && u.uy == yupstair)
 		|| (u.ux == sstairs.sx && u.uy == sstairs.sy && sstairs.up)
 		|| (u.ux == xupladder && u.uy == yupladder)) {
-		[self addCommand:[NhCommand commandWithTitle:"Up" key:'<'] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Up" key:'<'] toCommands:commands];
 	} else if ((u.ux == xdnstair && u.uy == ydnstair)
 			   || (u.ux == sstairs.sx && u.uy == sstairs.sy && !sstairs.up)
 			   || (u.ux == xdnladder && u.uy == ydnladder)) {
-		[self addCommand:[NhCommand commandWithTitle:"Down" key:'>'] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Down" key:'>'] toCommands:commands];
 	}
 	
 	// objects lying on the floor
 	struct obj *object = level.objects[u.ux][u.uy];
 	if (object) {
-		[self addCommand:[NhCommand commandWithTitle:"Pickup" key:','] toCommands:commands key:kFloor];
-		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Pickup" key:','] toCommands:commands];
+		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands];
 		while (object) {
 			if (Is_container(object)) {
 				if (Is_box(object)) { // not a bag or medkit
 					char cmdUntrapDown[] = {M('u'), '>', 'y', 0};
 					[self addCommand:[NhCommand commandWithTitle:"Untrap Container" keys:cmdUntrapDown]
-						  toCommands:commands key:kFloor];
+						  toCommands:commands];
 					if (object->olocked) {
 						if (inv & fWieldedWeapon) {
 							char forceDown[] = {M('f'), '>', 'y', 0};
 							[self addCommand:[NhCommand commandWithTitle:"Force Container" keys:forceDown]
-								  toCommands:commands key:kFloor];
+								  toCommands:commands];
 						}
 						if (inv & fAppliable) {
 							[self addCommand:[NhCommand commandWithTitle:"Apply" key:'a']
-								  toCommands:commands key:kFloor];
+								  toCommands:commands];
 						}
 					} else {
 						char cmdLoot[] = {M('l'), 'y', 0};
-						[self addCommand:[NhCommand commandWithTitle:"Loot Container" keys:cmdLoot] toCommands:commands key:kFloor];
+						[self addCommand:[NhCommand commandWithTitle:"Loot Container" keys:cmdLoot] toCommands:commands];
 					}
 				} else { // bags, medkit etc.
 					char cmdLoot[] = {M('l'), 'y', 0};
-					[self addCommand:[NhCommand commandWithTitle:"Loot Container" keys:cmdLoot] toCommands:commands key:kFloor];
+					[self addCommand:[NhCommand commandWithTitle:"Loot Container" keys:cmdLoot] toCommands:commands];
 				}
 			} else if (is_edible(object)) {
 #if SLASHEM
 				[self addCommand:[NhCommand commandWithTitle:"Eat what's here" keys:"e,"]
-					  toCommands:commands key:kFloor];
+					  toCommands:commands];
 #else
 				[self addCommand:[NhCommand commandWithTitle:"Eat" keys:"e"]
-					  toCommands:commands key:kFloor];
+					  toCommands:commands];
 #endif
 				if (object->otyp == CORPSE) {
 					oCorpse = object;
@@ -214,10 +191,10 @@ enum GroundFlags {
 						NhObject *tinningKit = [NhObject objectWithObject:oTinningKit];
 #if SLASHEM
 						[self addCommand:[NhCommand commandWithObject:tinningKit title:"Tin what's here" keys:"a" direction:","]
-							  toCommands:commands key:kFloor];
+							  toCommands:commands];
 #else
 						[self addCommand:[NhCommand commandWithObject:tinningKit title:"Tin" keys:"a"]
-							  toCommands:commands key:kFloor];
+							  toCommands:commands];
 #endif
 					}
 				}
@@ -225,7 +202,7 @@ enum GroundFlags {
 			struct obj *otmp = shop_object(u.ux, u.uy);
 			if (otmp) {
 				[self addCommand:[NhCommand commandWithTitle:"Chat" key:M('c')]
-					  toCommands:commands key:kMisc];
+					  toCommands:commands];
 			}
 			object = object->nexthere;
 		}
@@ -241,47 +218,47 @@ enum GroundFlags {
 	
 	if (ground & fEngraved) {
 #if SLASHEM
-		[self addCommand:[NhCommand commandWithTitle:"Read what's here" keys:"r."] toCommands:commands key:kFloor];
+		[self addCommand:[NhCommand commandWithTitle:"Read what's here" keys:"r."] toCommands:commands];
 #else
-		[self addCommand:[NhCommand commandWithTitle:"What's here" keys:":"] toCommands:commands key:kFloor];
+		[self addCommand:[NhCommand commandWithTitle:"What's here" keys:":"] toCommands:commands];
 #endif
 	}
 	
 	if (IS_ALTAR(levl[u.ux][u.uy].typ)) {
-		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands];
 		if (inv & fCorpse) {
-			[self addCommand:[NhCommand commandWithTitle:"Offer" key:M('o')] toCommands:commands key:kDungeon];
+			[self addCommand:[NhCommand commandWithTitle:"Offer" key:M('o')] toCommands:commands];
 		}
 		if (oCorpse) {
 			char cmd[] = { M('o'), ',', 0 };
-			[self addCommand:[NhCommand commandWithTitle:"Offer what's here" keys:cmd] toCommands:commands key:kDungeon];
+			[self addCommand:[NhCommand commandWithTitle:"Offer what's here" keys:cmd] toCommands:commands];
 		}
 	}
 	if (IS_FOUNTAIN(levl[u.ux][u.uy].typ) || IS_SINK(levl[u.ux][u.uy].typ) || IS_TOILET(levl[u.ux][u.uy].typ)) {
-		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands];
 #if SLASHEM
-		[self addCommand:[NhCommand commandWithTitle:"Quaff" keys:"q."] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Quaff" keys:"q."] toCommands:commands];
 #else
-		[self addCommand:[NhCommand commandWithTitle:"Quaff" keys:"q"] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Quaff" keys:"q"] toCommands:commands];
 #endif
-		[self addCommand:[NhCommand commandWithTitle:"Dip" key:M('d')] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Dip" key:M('d')] toCommands:commands];
 	}
 	if (IS_THRONE(levl[u.ux][u.uy].typ)) {
-		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands key:kDungeon];
-		[self addCommand:[NhCommand commandWithTitle:"Sit" key:M('s')] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"What's here" key:':'] toCommands:commands];
+		[self addCommand:[NhCommand commandWithTitle:"Sit" key:M('s')] toCommands:commands];
 	}
 	
 	if (oWieldedWeapon) {
 		NhObject *wieldedWeapon = [NhObject objectWithObject:oWieldedWeapon];
 		[self addCommand:[NhCommand commandWithObject:wieldedWeapon title:"Apply wielded weapon" keys:"a"]
-			  toCommands:commands key:kInventory]; 
+			  toCommands:commands]; 
 	}
 	
 	struct trap *t = t_at(u.ux, u.uy);
 	if (t) {
 		// todo check for knowledge about trap
-		[self addCommand:[NhCommand commandWithTitle:"Untrap" key:M('u')] toCommands:commands key:kDungeon];
-		[self addCommand:[NhCommand commandWithTitle:"Identify Trap" key:'^'] toCommands:commands key:kDungeon];
+		[self addCommand:[NhCommand commandWithTitle:"Untrap" key:M('u')] toCommands:commands];
+		[self addCommand:[NhCommand commandWithTitle:"Identify Trap" key:'^'] toCommands:commands];
 	}
 
 	int positions[][2] = {
@@ -301,36 +278,36 @@ enum GroundFlags {
 			if (IS_DOOR(levl[tx][ty].typ)) {
 				int mask = levl[tx][ty].doormask;
 				if (mask & D_ISOPEN) {
-					[self addCommand:[NhCommand commandWithTitle:"Close" key:'c'] toCommands:commands key:kDungeon];
+					[self addCommand:[NhCommand commandWithTitle:"Close" key:'c'] toCommands:commands];
 				} else {
 					if (mask & D_CLOSED) {
-						[self addCommand:[NhCommand commandWithTitle:"Open" key:'o'] toCommands:commands key:kDungeon];
+						[self addCommand:[NhCommand commandWithTitle:"Open" key:'o'] toCommands:commands];
 					} else if (mask & D_LOCKED) {
 						if (inv & fWieldedWeapon) {
-							[self addCommand:[NhCommand commandWithTitle:"Force" key:M('f')] toCommands:commands key:kDungeon];
+							[self addCommand:[NhCommand commandWithTitle:"Force" key:M('f')] toCommands:commands];
 						}
 						if (inv & fAppliable) {
-							[self addCommand:[NhCommand commandWithTitle:"Apply" key:'a'] toCommands:commands key:kDungeon];
+							[self addCommand:[NhCommand commandWithTitle:"Apply" key:'a'] toCommands:commands];
 						}
 					}
 					// if polymorphed into something that can't open doors, kick should there for either door mask
-					[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands key:kDungeon];
+					[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands];
 				}
 			}
 			struct trap *t = t_at(tx, ty);
 			if (t) {
 				// todo check for knowledge about trap
-				[self addCommand:[NhCommand commandWithTitle:"Untrap" key:M('u')] toCommands:commands key:kDungeon];
-				[self addCommand:[NhCommand commandWithTitle:"Identify Trap" key:'^'] toCommands:commands key:kDungeon];
+				[self addCommand:[NhCommand commandWithTitle:"Untrap" key:M('u')] toCommands:commands];
+				[self addCommand:[NhCommand commandWithTitle:"Identify Trap" key:'^'] toCommands:commands];
 			}
 			struct monst *mtmp = m_at(tx, ty);
 			if (mtmp) {
-				[self addCommand:[NhCommand commandWithTitle:"Chat" key:M('c')] toCommands:commands key:kMisc];
+				[self addCommand:[NhCommand commandWithTitle:"Chat" key:M('c')] toCommands:commands];
 			}
 		}
 	}
 	
-	[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands key:kDungeon];
+	[self addCommand:[NhCommand commandWithTitle:"Kick" key:C('d')] toCommands:commands];
 	
 	// automatic E-Word
 	char ewordCmd[20];
@@ -361,16 +338,16 @@ enum GroundFlags {
 	if (ewordPossible) {
 		char ewordTitle[40];
 		sprintf(ewordTitle, "E-Word (%s)", ewordMeans);
-		[self addCommand:[NhCommand commandWithTitle:ewordTitle keys:ewordCmd] toCommands:commands key:kMisc];
+		[self addCommand:[NhCommand commandWithTitle:ewordTitle keys:ewordCmd] toCommands:commands];
 	}
 	
 	if (inside_shop(u.ux, u.uy)) {
-		[self addCommand:[NhCommand commandWithTitle:"Pay" key:'p'] toCommands:commands key:kMisc];
+		[self addCommand:[NhCommand commandWithTitle:"Pay" key:'p'] toCommands:commands];
 	}
 	
-	[self addCommand:[NhCommand commandWithTitle:"Pray" key:M('p')] toCommands:commands key:kMisc];
-	[self addCommand:[NhCommand commandWithTitle:"Rest 19 turns" keys:"19."] toCommands:commands key:kMisc];
-	[self addCommand:[NhCommand commandWithTitle:"Rest 99 turns" keys:"99."] toCommands:commands key:kMisc];
+	[self addCommand:[NhCommand commandWithTitle:"Pray" key:M('p')] toCommands:commands];
+	[self addCommand:[NhCommand commandWithTitle:"Rest 19 turns" keys:"19."] toCommands:commands];
+	[self addCommand:[NhCommand commandWithTitle:"Rest 99 turns" keys:"99."] toCommands:commands];
 
 	return commands;
 }
@@ -380,8 +357,8 @@ enum GroundFlags {
 	return [NhCommand commandWithTitle:t keys:cmd];
 }
 
-+ (NSDictionary *)commandsForAdjacentTile:(coord)tp {
-	NSMutableDictionary *commands = [NSMutableDictionary dictionary];
++ (NSArray *)commandsForAdjacentTile:(coord)tp {
+	NSMutableArray *commands = [NSMutableArray array];
 	coord nhDelta = CoordMake(tp.x-u.ux, tp.y-u.uy);
 	int dir = xytod(nhDelta.x, nhDelta.y);
 	char direction = sdir[dir];
@@ -390,47 +367,37 @@ enum GroundFlags {
 			int mask = levl[tp.x][tp.y].doormask;
 			if (mask & D_ISOPEN) {
 				[self addCommand:[self directionCommandWithTitle:"Close" key:'c' direction:direction]
-					  toCommands:commands key:kDungeon];
-				[self addCommand:[NhCommand commandWithTitle:"Move" key:direction] toCommands:commands key:kDungeon];
+					  toCommands:commands];
+				[self addCommand:[NhCommand commandWithTitle:"Move" key:direction] toCommands:commands];
 			} else {
 				if (mask & D_CLOSED) {
 					[self addCommand:[self directionCommandWithTitle:"Open" key:'o' direction:direction]
-						  toCommands:commands key:kDungeon];
+						  toCommands:commands];
 					[self addCommand:[self directionCommandWithTitle:"Kick" key:C('d') direction:direction]
-						  toCommands:commands key:kDungeon];
+						  toCommands:commands];
 				} else if (mask & D_LOCKED) {
 					[self addCommand:[NhCommand commandWithTitle:"Force" key:M('f')]
-						  toCommands:commands key:kDungeon];
+						  toCommands:commands];
 					[self addCommand:[NhCommand commandWithTitle:"Apply" key:'a']
-						  toCommands:commands key:kDungeon];
+						  toCommands:commands];
 					[self addCommand:[self directionCommandWithTitle:"Kick" key:C('d') direction:direction]
-						  toCommands:commands key:kDungeon];
+						  toCommands:commands];
 				}
 			}
 		}
 		struct trap *t = t_at(tp.x, tp.y);
 		if (t) {
 			[self addCommand:[self directionCommandWithTitle:"Untrap" key:M('u') direction:direction]
-				  toCommands:commands key:kDungeon];
+				  toCommands:commands];
 		}
 		struct monst *mtmp = m_at(tp.x, tp.y);
 		if (mtmp) {
 			[self addCommand:[self directionCommandWithTitle:"Chat" key:M('c') direction:direction]
-				  toCommands:commands key:kMisc];
-			[self addCommand:[NhCommand commandWithTitle:"Move" key:direction] toCommands:commands key:kMisc];
+				  toCommands:commands];
+			[self addCommand:[NhCommand commandWithTitle:"Move" key:direction] toCommands:commands];
 		}
 	}
 	return commands;
-}
-
-+ (NSArray *)allCurrentCommands {
-	NSDictionary *commands = [self currentCommands];
-	return [commands objectForKey:kInternal];
-}
-
-+ (NSArray *)allCommandsForAdjacentTile:(coord)tp {
-	NSDictionary *commands = [self commandsForAdjacentTile:tp];
-	return [commands objectForKey:kInternal];
 }
 
 + (NSArray *)directionCommands {

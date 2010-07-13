@@ -678,7 +678,7 @@ enum rotation_lock {
 	} else if (!ios_getpos) {
 		if (u.ux == x && u.uy == y) {
 			// tap on self
-			NSArray *commands = [NhCommand allCurrentCommands];
+			NSArray *commands = [NhCommand currentCommands];
 			ActionViewController *actionViewController = self.actionViewController;
 			actionViewController.actions = commands;
 			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -691,7 +691,7 @@ enum rotation_lock {
 			coord delta = CoordMake(u.ux-x, u.uy-y);
 			if (abs(delta.x) <= 1 && abs(delta.y) <= 1 ) {
 				// tap on adjacent tile
-				NSArray *commands = [NhCommand allCommandsForAdjacentTile:CoordMake(x, y)];
+				NSArray *commands = [NhCommand commandsForAdjacentTile:CoordMake(x, y)];
 				if (commands.count > 0) {
 					ActionViewController *actionViewController = self.actionViewController;
 					actionViewController.actions = commands;
@@ -756,7 +756,7 @@ enum rotation_lock {
 					cmd[0] = 'o';
 					[[NhEventQueue instance] addKeys:cmd];
 				} else if (mask & D_LOCKED) {
-					NSArray *commands = [NhCommand allCommandsForAdjacentTile:tp];
+					NSArray *commands = [NhCommand commandsForAdjacentTile:tp];
 					if (commands.count > 0) {
 						ActionViewController *actionViewController = self.actionViewController;
 						actionViewController.actions = commands;

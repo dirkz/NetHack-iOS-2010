@@ -45,12 +45,6 @@
 #define C(c)		(0x1f & (c))
 #endif
 
-#define kDungeon (@"Dungeon")
-#define kFloor (@"Floor")
-#define kMisc (@"Misc")
-#define kInventory (@"Inventory")
-#define kInternal (@"Internal")
-
 @class NhObject;
 
 @interface NhCommand : Action {
@@ -67,19 +61,13 @@
 + (id)commandWithObject:(NhObject *)object title:(const char *)t keys:(const char *)cmds;
 + (id)commandWithObject:(NhObject *)object title:(const char *)t keys:(const char *)cmds direction:(const char *)dir;
 
-// the possible categories of actions/commands
-+ (NSArray *)categories;
-
-+ (void)addCommand:(NhCommand *)cmd toCommands:(NSMutableDictionary *)commands key:(NSString *)key;
++ (void)addCommand:(NhCommand *)cmd toCommands:(NSMutableArray *)commands;
 
 // all commands possible at this stage, sorted by category
-+ (NSDictionary *)currentCommands;
-
-// all commands possible at this stage, flat array
-+ (NSArray *)allCurrentCommands;
++ (NSArray *)currentCommands;
 
 // all commands possible for an adjacent position, flat array
-+ (NSArray *)allCommandsForAdjacentTile:(coord)tp;
++ (NSArray *)commandsForAdjacentTile:(coord)tp;
 
 // direction commands
 + (NSArray *)directionCommands;
