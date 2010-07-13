@@ -679,23 +679,16 @@ enum rotation_lock {
 		if (u.ux == x && u.uy == y) {
 			// tap on self
 			NSArray *commands = [NhCommand currentCommands];
-			ActionViewController *actionViewController = self.actionViewController;
-			actionViewController.actions = commands;
-			if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-				CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
-				[self displayPopoverWithController:actionViewController mapViewRect:hitRect];
-			} else {
-				[self presentModalViewController:actionViewController animated:YES];
-			}
+			CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
+			[self showActionMenu:commands mapViewRect:hitRect];
 		} else {
 			coord delta = CoordMake(u.ux-x, u.uy-y);
 			if (abs(delta.x) <= 1 && abs(delta.y) <= 1 ) {
 				// tap on adjacent tile
 				NSArray *commands = [NhCommand commandsForAdjacentTile:CoordMake(x, y)];
 				if (commands.count > 0) {
-					ActionViewController *actionViewController = self.actionViewController;
-					actionViewController.actions = commands;
-					[self presentModalViewController:actionViewController animated:YES];
+					CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
+					[self showActionMenu:commands mapViewRect:hitRect];
 				} else {
 					// movement
 					[[NhEventQueue instance] addEvent:[NhEvent eventWithX:x y:y]];
@@ -758,9 +751,8 @@ enum rotation_lock {
 				} else if (mask & D_LOCKED) {
 					NSArray *commands = [NhCommand commandsForAdjacentTile:tp];
 					if (commands.count > 0) {
-						ActionViewController *actionViewController = self.actionViewController;
-						actionViewController.actions = commands;
-						[self presentModalViewController:actionViewController animated:YES];
+						CGRect hitRect = [mapView rectFromTilePositionX:tp.x y:tp.y];
+						[self showActionMenu:commands mapViewRect:hitRect];
 					}
 				} else {
 					[[NhEventQueue instance] addKey:key];
@@ -819,6 +811,26 @@ enum rotation_lock {
 	[popover setPopoverContentSize:popover.contentViewController.contentSizeForViewInPopover];
 	[popover presentPopoverFromRect:rect inView:mapView
 		   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)showActionMenu:(NSArray *)actions mapViewRect:(CGRect)rect {
+	ActionViewController *actionViewController = self.actionViewController;
+	actionViewController.actions = actions;
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		UIPopoverController *popover = [self popoverWithController:actionViewController];
+		[popover setPopoverContentSize:popover.contentViewController.contentSizeForViewInPopover];
+		for (Action *action in actions) {
+			[action addTarget:self action:@selector(dismissPopover:) arg:popover];
+		}
+		[popover presentPopoverFromRect:rect inView:mapView
+			   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+	} else {
+		[self presentModalViewController:actionViewController animated:YES];
+	}
+}
+
+- (void)dismissPopover:(UIPopoverController *)popover {
+	[popover dismissPopoverAnimated:NO];
 }
 
 #pragma mark (Layered)ActionBar

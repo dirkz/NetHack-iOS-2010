@@ -131,6 +131,12 @@
 
 - (void)displayPopoverWithController:(UIViewController *)controller mapViewRect:(CGRect)rect;
 
+// decides whether to show popover or modal dialog
+- (void)showActionMenu:(NSArray *)actions mapViewRect:(CGRect)rect;
+
+// dismisses the given popover without animation
+- (void)dismissPopover:(UIPopoverController *)popover;
+
 #pragma mark (Layered)ActionBar
 
 // pushes the given actions into the action bar
