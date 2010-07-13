@@ -68,8 +68,9 @@
 	detailLabel.text = item.detail;
 }
 
+// should be the same as in InventoryViewController
 - (CGSize)contentSizeForViewInPopover {
-	return [[MainViewController instance] maxPopoverSize];
+	return CGSizeMake(450.0f, [[MainViewController instance] maxPopoverSize].height);
 }
 
 - (NhCommand *)dropOneCommand {

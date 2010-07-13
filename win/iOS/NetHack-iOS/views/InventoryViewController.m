@@ -72,7 +72,7 @@
 }
 
 - (CGSize)contentSizeForViewInPopover {
-	return [[MainViewController instance] maxPopoverSize];
+	return CGSizeMake(450.0f, [[MainViewController instance] maxPopoverSize].height);
 }
 
 -(void)conditionallyDismissModalViewControllerAnimated:(BOOL)animated {
