@@ -120,7 +120,7 @@
 - (void)handleDirectionTap:(e_direction)direction;
 - (void)handleDirectionDoubleTap:(e_direction)direction;
 
-#pragma mark popover
+#pragma mark view controller handling
 
 // dismisses any current popovers and prepares that one
 - (UIPopoverController *)popoverWithController:(UIViewController *)controller;
@@ -131,11 +131,27 @@
 
 - (void)displayPopoverWithController:(UIViewController *)controller mapViewRect:(CGRect)rect;
 
-// decides whether to show popover or modal dialog
+// sender is supposed to be a NSValue'd action bar CGRect
+- (void)showActionMenu:(NSArray *)actions sender:(id)sender dismiss:(BOOL)dismiss;
+
+// decides whether to show popover or modal dialog with the given actions
 - (void)showActionMenu:(NSArray *)actions mapViewRect:(CGRect)rect;
 
-// dismisses the given popover without animation
+// the dismiss decides whether every action should trigger a popover dismiss too on iPad
+- (void)showActionMenu:(NSArray *)actions mapViewRect:(CGRect)rect dismiss:(BOOL)dismiss;
+
+// method when your rect comes from the action bar
+- (void)showActionMenu:(NSArray *)actions actionBarRect:(CGRect)rect dismiss:(BOOL)dismiss;
+
+// dismisses the given popover without animation, used for selector methods
+// that usually don't work gracefully with the original method (because of the BOOL param)
 - (void)dismissPopover:(UIPopoverController *)popover;
+
+// shows the given VC either as popover or modal
+- (void)showViewController:(UIViewController *)vc sender:(id)sender;
+
+// for use in content VCs
+- (void)dismissCurrentPopover;
 
 #pragma mark (Layered)ActionBar
 

@@ -155,32 +155,17 @@ enum rotation_lock {
 						 [NhCommand commandWithTitle:"Explore mode" key:'X'],
 						 [NhCommand commandWithTitle:"Call Monster" key:'C'],
 						 nil];
-	ActionViewController *actionViewController = self.actionViewController;
-	actionViewController.actions = commands;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		[self displayPopoverWithController:actionViewController sender:sender];
-	} else {
-		[self presentModalViewController:actionViewController animated:YES];
-	}
+	[self showActionMenu:commands actionBarRect:[(NSValue *) sender CGRectValue] dismiss:YES];
 }
 
 - (void)tilesetMenuAction:(id)sender {
-	TileSetViewController *tilesetViewController = self.tileSetViewController;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		[self displayPopoverWithController:tilesetViewController sender:sender];
-	} else {
-		[self presentModalViewController:tilesetViewController animated:YES];
-	}
+	[self showViewController:self.tileSetViewController sender:sender];
 }
 
 - (void)toolsMenuAction:(id)sender {
 	ToolsViewController *toolsViewController = self.toolsViewController;
 	if (toolsViewController.items.count > 0) {
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			[self displayPopoverWithController:toolsViewController sender:sender];
-		} else {
-			[self presentModalViewController:toolsViewController animated:YES];
-		}
+		[self showViewController:toolsViewController sender:sender];
 	} else {
 		[self showMessage:@"No tools available"];
 	}
@@ -197,13 +182,7 @@ enum rotation_lock {
 						 [NhCommand commandWithTitle:"Create Monster" key:C('g')],
 						 [NhCommand commandWithTitle:"Show Attributes" key:C('x')],
 						 nil];
-	ActionViewController *actionViewController = self.actionViewController;
-	actionViewController.actions = commands;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		[self displayPopoverWithController:actionViewController sender:sender];
-	} else {
-		[self presentModalViewController:actionViewController animated:YES];
-	}
+	[self showActionMenu:commands sender:sender dismiss:YES];
 }
 
 - (void)moveMenuAction:(id)sender {
@@ -212,13 +191,7 @@ enum rotation_lock {
 						 [NhCommand commandWithTitle:"Force Attack" key:'F'],
 						 [NhCommand commandWithTitle:"Teleport" key:C('T')],
 						 nil];
-	ActionViewController *actionViewController = self.actionViewController;
-	actionViewController.actions = commands;
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		[self displayPopoverWithController:actionViewController sender:sender];
-	} else {
-		[self presentModalViewController:actionViewController animated:YES];
-	}
+	[self showActionMenu:commands sender:sender dismiss:YES];
 }
 
 - (UIBarButtonItem *)buttonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
@@ -230,7 +203,7 @@ enum rotation_lock {
 	[messageView toggleMessageHistory:sender];
 }
 
-#pragma mark view controllers
+#pragma mark view controller properties
 
 - (ActionViewController *)actionViewController {
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -283,13 +256,6 @@ enum rotation_lock {
 		nibName = @"ToolsViewController";
 	}
 	return [[[ToolsViewController alloc] initWithNibName:nibName bundle:nil] autorelease];
-}
-
-- (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
-	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-		modalViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-	}
-	[super presentModalViewController:modalViewController animated:animated];
 }
 
 #pragma mark window API
@@ -346,6 +312,11 @@ enum rotation_lock {
 		[statusView update];
 		messageView.text = [[NhWindow messageWindow] textWithDelimiter:@" "];
 	}
+}
+
+- (void)endDirectionQuestion {
+	directionQuestion = NO;
+	[self popActions];
 }
 
 - (void)handleDirectionQuestion:(NhYnQuestion *)q {
@@ -656,17 +627,12 @@ enum rotation_lock {
 	return kDirectionMax;
 }
 
-- (void)endDirectionQuestion {
-	directionQuestion = NO;
-	[self popActions];
-}
-
 - (void)handleMapTapTileX:(int)x y:(int)y forLocation:(CGPoint)p inView:(UIView *)view {
 	//DLog(@"tap on %d,%d (u %d,%d)", x, y, u.ux, u.uy);
 	if (directionQuestion) {
 		if (u.ux != x || u.uy != y) {
 			// taps on self are ignored, they are very amibigious (<,>,. ?)
-			directionQuestion = NO;
+			[self endDirectionQuestion];
 			CGPoint delta = CGPointMake((x-u.ux) * 32.0f, (y-u.uy) * 32.0f);
 			delta.y *= -1;
 			//DLog(@"delta %3.2f,%3.2f", delta.x, delta.y);
@@ -706,7 +672,7 @@ enum rotation_lock {
 - (void)handleDirectionTap:(e_direction)direction {
 	if (!ios_getpos) {
 		if (directionQuestion) {
-			directionQuestion = NO;
+			[self endDirectionQuestion];
 			int key = [self keyFromDirection:direction];
 			[[NhEventQueue instance] addKey:key];
 		} else {
@@ -773,7 +739,7 @@ enum rotation_lock {
 	}
 }
 
-#pragma mark popover
+#pragma mark view controller handling
 
 - (CGSize)maxPopoverSize {
 	CGRect bounds = self.view.bounds;
@@ -787,12 +753,7 @@ enum rotation_lock {
 }
 
 - (UIPopoverController *)popoverWithController:(UIViewController *)controller {
-	if (currentPopover) {
-		if (currentPopover.popoverVisible) {
-			[currentPopover dismissPopoverAnimated:NO];
-		}
-		[currentPopover release];
-	}
+	[self dismissCurrentPopover];
 	currentPopover = [[UIPopoverController alloc] initWithContentViewController:controller];
 	return currentPopover;
 }
@@ -813,14 +774,25 @@ enum rotation_lock {
 		   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
+- (void)showActionMenu:(NSArray *)actions sender:(id)sender dismiss:(BOOL)dismiss {
+	CGRect r = [(NSValue *) sender CGRectValue];
+	[self showActionMenu:actions actionBarRect:r dismiss:dismiss];
+}
+
 - (void)showActionMenu:(NSArray *)actions mapViewRect:(CGRect)rect {
+	[self showActionMenu:actions mapViewRect:rect dismiss:NO];
+}
+
+- (void)showActionMenu:(NSArray *)actions mapViewRect:(CGRect)rect dismiss:(BOOL)dismiss {
 	ActionViewController *actionViewController = self.actionViewController;
 	actionViewController.actions = actions;
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 		UIPopoverController *popover = [self popoverWithController:actionViewController];
 		[popover setPopoverContentSize:popover.contentViewController.contentSizeForViewInPopover];
-		for (Action *action in actions) {
-			[action addTarget:self action:@selector(dismissPopover:) arg:popover];
+		if (dismiss) {
+			for (Action *action in actions) {
+				[action addTarget:self action:@selector(dismissPopover:) arg:popover];
+			}
 		}
 		[popover presentPopoverFromRect:rect inView:mapView
 			   permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -829,8 +801,33 @@ enum rotation_lock {
 	}
 }
 
+- (void)showActionMenu:(NSArray *)actions actionBarRect:(CGRect)rect dismiss:(BOOL)dismiss {
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		rect = [layeredActionBar convertRect:rect toView:mapView];
+	}
+	[self showActionMenu:actions mapViewRect:rect dismiss:dismiss];
+}
+
 - (void)dismissPopover:(UIPopoverController *)popover {
 	[popover dismissPopoverAnimated:NO];
+}
+
+- (void)showViewController:(UIViewController *)vc sender:(id)sender {
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		[self displayPopoverWithController:vc sender:sender];
+	} else {
+		[self presentModalViewController:vc animated:YES];
+	}
+}
+
+- (void)dismissCurrentPopover {
+	if (currentPopover) {
+		if (currentPopover.popoverVisible) {
+			[currentPopover dismissPopoverAnimated:NO];
+		}
+		[currentPopover release];
+		currentPopover = nil;
+	}
 }
 
 #pragma mark (Layered)ActionBar

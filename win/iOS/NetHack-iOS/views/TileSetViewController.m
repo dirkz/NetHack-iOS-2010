@@ -33,6 +33,7 @@
 @implementation TileSetViewController
 
 @synthesize tableView = tv;
+@synthesize currentIndexPath;
 
 #pragma mark -
 #pragma mark Initialization
@@ -93,6 +94,7 @@
 	}
 	
 	if ([title isEqual:[[TileSet instance] title]]) {
+		self.currentIndexPath = indexPath;
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	} else {
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -111,7 +113,17 @@
 	[[MainViewController instance] displayWindow:[NhWindow mapWindow]];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:[TileSet titleForTilesetDictionary:dict] forKey:kNetHackTileSet];
-	[self dismissModalViewControllerAnimated:NO];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+		cell.accessoryType = UITableViewCellAccessoryCheckmark;
+		if (![indexPath isEqual:currentIndexPath]) {
+			cell = [tableView cellForRowAtIndexPath:currentIndexPath];
+			cell.accessoryType = UITableViewCellAccessoryNone;
+			self.currentIndexPath = indexPath;
+		}
+	} else {
+		[self dismissModalViewControllerAnimated:NO];
+	}
 }
 
 #pragma mark -
@@ -119,6 +131,7 @@
 
 - (void)dealloc {
 	[tilesets release];
+	[currentIndexPath release];
     [super dealloc];
 }
 

@@ -28,10 +28,12 @@
 
 	NSArray *tilesets;
 	IBOutlet UITableView *tv;
+	NSIndexPath *currentIndexPath;
 	
 }
 
 @property (nonatomic, readonly) UITableView *tableView;
+@property (nonatomic, retain) NSIndexPath *currentIndexPath;
 
 - (IBAction)cancelAction:(id)sender;
 
