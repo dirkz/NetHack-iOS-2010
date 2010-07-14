@@ -90,7 +90,7 @@
 			CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
 			CGContextSetFillColorWithColor(ctx, [UIColor redColor].CGColor);
 			NSString *info = [NSString stringWithCString:status.status encoding:NSASCIIStringEncoding];
-			size = [info drawAtPoint:p withFont:font];
+			[info drawAtPoint:p withFont:font];
 		}
 	}
 }
