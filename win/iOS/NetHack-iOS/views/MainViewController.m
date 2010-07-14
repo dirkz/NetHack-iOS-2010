@@ -468,7 +468,7 @@ enum rotation_lock {
 												   initWithNibName:@"TextViewController" bundle:nil] autorelease];
 		textViewController.text = text;
 		textViewController.blocking = YES;
-		[self presentModalViewController:textViewController animated:YES];
+		[self showModalViewController:textViewController];
 	}
 }
 
@@ -501,7 +501,7 @@ enum rotation_lock {
 	} else {
 		MenuViewController *menuViewController = self.menuViewController;
 		menuViewController.menuWindow = w;
-		[self presentModalViewController:menuViewController animated:YES];
+		[self showModalViewController:menuViewController];
 	}
 }
 
@@ -646,7 +646,7 @@ enum rotation_lock {
 			// tap on self
 			NSArray *commands = [NhCommand currentCommands];
 			CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
-			[self showActionMenu:commands mapViewRect:hitRect];
+			[self showActionMenu:commands mapViewRect:hitRect dismiss:YES];
 		} else {
 			coord delta = CoordMake(u.ux-x, u.uy-y);
 			if (abs(delta.x) <= 1 && abs(delta.y) <= 1 ) {
@@ -654,7 +654,7 @@ enum rotation_lock {
 				NSArray *commands = [NhCommand commandsForAdjacentTile:CoordMake(x, y)];
 				if (commands.count > 0) {
 					CGRect hitRect = [mapView rectFromTilePositionX:x y:y];
-					[self showActionMenu:commands mapViewRect:hitRect];
+					[self showActionMenu:commands mapViewRect:hitRect dismiss:YES];
 				} else {
 					// movement
 					[[NhEventQueue instance] addEvent:[NhEvent eventWithX:x y:y]];
@@ -718,7 +718,7 @@ enum rotation_lock {
 					NSArray *commands = [NhCommand commandsForAdjacentTile:tp];
 					if (commands.count > 0) {
 						CGRect hitRect = [mapView rectFromTilePositionX:tp.x y:tp.y];
-						[self showActionMenu:commands mapViewRect:hitRect];
+						[self showActionMenu:commands mapViewRect:hitRect dismiss:YES];
 					}
 				} else {
 					[[NhEventQueue instance] addKey:key];
