@@ -418,7 +418,7 @@ enum rotation_lock {
 																	  initWithNibName:@"QuestionViewController" bundle:nil];
 					questionViewController.question = q;
 					[questionViewController autorelease];
-					[self presentModalViewController:questionViewController animated:YES];
+					[self showModalViewController:questionViewController];
 				} else {
 					currentYnQuestion = q;
 					UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Question" message:q.question
@@ -451,7 +451,7 @@ enum rotation_lock {
 																	  initWithNibName:@"QuestionViewController" bundle:nil];
 					questionViewController.question = q;
 					[questionViewController autorelease];
-					[self presentModalViewController:questionViewController animated:YES];
+					[self showModalViewController:questionViewController];
 				}
 			} else {
 				DLog(@"giving up on question %@", q.question);
@@ -868,7 +868,7 @@ enum rotation_lock {
 }
 
 -(void)placeActionBar:(UIView *)bar {
-	CGSize padding = CGSizeMake(20.0f, 20.0f);
+	CGSize padding = CGSizeMake(10.0f, 10.0f);
 	CGSize allBounds = self.view.bounds.size;
 	CGSize maxSize = CGSizeMake(allBounds.width, allBounds.height-2*padding.height);
 	CGSize actionBarSize = [bar sizeThatFits:maxSize];

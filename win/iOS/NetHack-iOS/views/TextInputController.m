@@ -26,6 +26,7 @@
 #import "NhTextInputEvent.h"
 #import "NhEventQueue.h"
 #import "NhWindow.h"
+#import "MainViewController.h"
 
 @implementation TextInputController
 
@@ -72,17 +73,23 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-	NSDictionary *userInfo = [notification userInfo];
-	NSValue *value = [userInfo valueForKey:UIKeyboardBoundsUserInfoKey];
-	CGRect keyboardFrame;
-	[value getValue:&keyboardFrame];
-
-	CGRect messageFrame = messageTextView.frame;
-	CGFloat overlap = messageFrame.origin.y + messageFrame.size.height - (self.view.bounds.size.height - keyboardFrame.size.height);
-	if (overlap != 0.0f) {
-		messageFrame.size.height -= overlap;
-		messageTextView.frame = messageFrame;
-	}
+//	UIView *referenceView = [[MainViewController instance] view];
+//	NSDictionary *userInfo = [notification userInfo];
+//	CGRect keyboardFrame = [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//	DRect(@"keyboardFrame orig", keyboardFrame);
+//	keyboardFrame = [messageTextView convertRect:keyboardFrame fromView:self.view];
+//	DRect(@"keyboardFrame view", keyboardFrame);
+//
+//	CGRect messageFrame = messageTextView.frame;
+//	DRect(@"messageFrame orig", messageFrame);
+//	messageFrame = [messageTextView convertRect:messageFrame fromView:self.view];
+//	DRect(@"messageFrame view", messageFrame);
+//	CGFloat overlap = messageFrame.origin.y + messageFrame.size.height -
+//	(self.view.bounds.size.height - keyboardFrame.size.height);
+//	if (overlap != 0.0f) {
+//		messageFrame.size.height -= overlap;
+//		messageTextView.frame = messageFrame;
+//	}
 }
 
 #pragma mark UITextFieldDelegate
