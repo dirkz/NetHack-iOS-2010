@@ -339,7 +339,7 @@ static BOOL s_doubleTapsEnabled = NO;
 
 - (void)dealloc {
 	CGImageRelease(petMark);
-	[[TileSet instance] release];
+	[TileSet setInstance:nil];
 	[touchInfoStore release];
     [super dealloc];
 }

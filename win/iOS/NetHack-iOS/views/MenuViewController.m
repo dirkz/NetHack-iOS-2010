@@ -127,7 +127,6 @@
 
 - (IBAction)okButton:(id)sender {
 	// PICK_ANY
-	[self dismissModalViewControllerAnimated:NO];
 	[self.menuWindow removeAllSelectedItems];
 	for (NhItemGroup *group in self.menuWindow.itemGroups) {
 		for (NhItem *item in group.items) {
@@ -137,6 +136,7 @@
 		}
 	}
 	[[NhEventQueue instance] addKey:self.menuWindow.selected.count]; // number of items
+	[self dismissModalViewControllerAnimated:NO];
 }
 
 - (IBAction)sliderValueChanged:(id)sender {

@@ -577,7 +577,7 @@ static int ios_role_select(char *pbuf, char *plbuf) {
 // from tty port
 static int ios_race_select(char * pbuf, char * plbuf) {
 	int i, k, n;
-	char thisch, lastch;
+	char thisch, lastch = 0;
 	winid win;
 	anything any;
 	menu_item *selected = 0;

@@ -35,7 +35,6 @@
 	if (self = [super initWithType:t]) {
 		itemGroups = [[NSMutableArray alloc] init];
 		selected = [[NSMutableArray alloc] init];
-		//DLog(@"init %@ %x %x", self, itemGroups, selected);
 	}
 	return self;
 }
@@ -79,14 +78,16 @@
 }
 
 - (void)startMenu {
-	//DLog(@"startMenu %@ %x %x", self, itemGroups, selected);
 	[itemGroups removeAllObjects];
 	[selected removeAllObjects];
 	currentItemGroup = nil;
 }
 
+- (NSString *)description {
+	return [NSString stringWithFormat:@"<NhMenuWindow %x>", self];
+}
+
 - (void)dealloc {
-	//DLog(@"dealloc %@ %x %x", self, itemGroups, selected);
 	[itemGroups release];
 	[selected release];
 	[super dealloc];

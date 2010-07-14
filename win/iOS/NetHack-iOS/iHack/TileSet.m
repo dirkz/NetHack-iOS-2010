@@ -41,14 +41,16 @@ static const CGSize defaultTileSize = {32.0f, 32.0f};
 	if (!s_instance) {
 		NSString *filename = [[NSUserDefaults standardUserDefaults] objectForKey:kNetHackTileSet];
 		TileSet *tileSet = [TileSet tileSetFromTitleOrFilename:filename];
-		s_instance = tileSet;
+		[self setInstance:tileSet];
 	}
 	return s_instance;
 }
 
 + (void)setInstance:(TileSet *)ts {
-	[s_instance release];
-	s_instance = ts;
+	if (ts != s_instance) {
+		[s_instance release];
+		s_instance = [ts retain];
+	}
 }
 
 + (NSString *)titleForTilesetDictionary:(NSDictionary *)dict {
@@ -69,17 +71,7 @@ static const CGSize defaultTileSize = {32.0f, 32.0f};
 }
 
 + (TileSet *)tileSetFromTitleOrFilename:(NSString *)title {
-	TileSet *tileSet = nil;
-	if ([title endsWithString:@".png"]) {
-		UIImage *tilesetImage = [UIImage imageNamed:title];
-		tileSet = [[self alloc] initWithImage:tilesetImage tileSize:defaultTileSize title:title];
-		if ([title containsString:@"absurd"]) {
-			tileSet.supportsTransparency = YES;
-		}
-	} else {
-		tileSet = [[AsciiTileSet alloc] initWithTileSize:defaultTileSize title:title];
-	}
-	return tileSet;
+	return [[[TileSet alloc] initWithTitleOrFilename:title] autorelease];
 }
 
 + (void)dumpTiles {
@@ -126,6 +118,20 @@ static const CGSize defaultTileSize = {32.0f, 32.0f};
 - (id)initWithImage:(UIImage *)img title:(NSString *)t {
 	[TileSet dumpTiles];
 	return [self initWithImage:img tileSize:defaultTileSize title:t];
+}
+
+- (id)initWithTitleOrFilename:(NSString *)t {
+	if ([t endsWithString:@".png"]) {
+		UIImage *tilesetImage = [UIImage imageNamed:t];
+		if (self = [[TileSet alloc] initWithImage:tilesetImage tileSize:defaultTileSize title:t]) {
+			if ([t containsString:@"absurd"]) {
+				self.supportsTransparency = YES;
+			}
+		}
+	} else {
+		self = [[AsciiTileSet alloc] initWithTileSize:defaultTileSize title:t];
+	}
+	return self;
 }
 
 - (CGImageRef)imageForTile:(int)tile atX:(int)x y:(int)y {
