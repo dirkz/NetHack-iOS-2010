@@ -48,6 +48,11 @@
 	return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+	return [[NhItem alloc] initWithTitle:self.title identifier:self.identifier
+						 inventoryLetter:self.inventoryLetter glyph:self.glyph selected:self.selected];
+}
+
 - (void) dealloc {
 	[super dealloc];
 }

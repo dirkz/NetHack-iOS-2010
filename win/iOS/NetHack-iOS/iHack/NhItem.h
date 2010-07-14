@@ -27,7 +27,7 @@
 
 #include "hack.h"
 
-@interface NhItem : NhObject {
+@interface NhItem : NhObject <NSCopying> {
 	
 	ANY_P identifier;
 	int maxAmount;
