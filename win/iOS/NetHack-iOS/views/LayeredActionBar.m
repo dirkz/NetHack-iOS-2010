@@ -99,7 +99,7 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 }
 
 - (CALayer *)layerForAction:(Action *)a {
-	ActionLayer *layer = [[ActionLayer alloc] init];
+	ActionLayer *layer = [ActionLayer layer];
 	layer.action = a;
 	return layer;
 }
@@ -115,7 +115,6 @@ static const CGSize s_actionItemSize  = { 72, 40 };
 		layer.position = CGPointMake(0.0f, layer.bounds.size.height * index);
 		[actionLayers addObject:layer];
 		[self.layer addSublayer:layer];
-		[layer release];
 	}
 }
 
