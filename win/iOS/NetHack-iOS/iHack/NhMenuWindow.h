@@ -43,12 +43,16 @@
 @property (nonatomic, readonly) NSArray *itemGroups;
 @property (nonatomic, readonly) NhItemGroup *currentItemGroup;
 @property (nonatomic, assign) int how;
-@property (nonatomic, readonly) NSMutableArray *selected;
+@property (nonatomic, readonly) NSArray *selected;
 @property (nonatomic, copy) NSString *prompt;
 
-- (void) addItemGroup:(NhItemGroup *)g;
+- (void)addItemGroup:(NhItemGroup *)g;
 - (NhItem *)itemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)addSelectedItem:(NhItem *)selected;
+- (void)removeAllSelectedItems;
+
 // for UI
+
 - (void)removeItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)startMenu;
 

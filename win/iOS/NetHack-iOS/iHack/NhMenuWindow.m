@@ -29,21 +29,27 @@
 
 @synthesize how;
 @synthesize itemGroups;
-@synthesize selected;
 @synthesize prompt;
 
-- (id) initWithType:(int)t {
+- (id)initWithType:(int)t {
 	if (self = [super initWithType:t]) {
+		itemGroups = [[NSMutableArray alloc] init];
+		selected = [[NSMutableArray alloc] init];
+		//DLog(@"init %@ %x %x", self, itemGroups, selected);
 	}
 	return self;
 }
 
-- (void) addItemGroup:(NhItemGroup *)g {
+- (NSArray *)selected {
+	return (NSArray *) selected;
+}
+
+- (void)addItemGroup:(NhItemGroup *)g {
 	[itemGroups addObject:g];
 	currentItemGroup = g;
 }
 
-- (NhItemGroup *) currentItemGroup {
+- (NhItemGroup *)currentItemGroup {
 	if (!currentItemGroup) {
 		NhItemGroup *g = [[NhItemGroup alloc] initWithTitle:@"All" dummy:YES];
 		[itemGroups addObject:g];
@@ -64,15 +70,23 @@
 	[g removeItemAtIndex:[indexPath row]];
 }
 
-- (void)startMenu {
-	[itemGroups release];
-	[selected release];
-	currentItemGroup = nil;
-	itemGroups = [[NSMutableArray alloc] init];
-	selected = [[NSMutableArray alloc] init];
+- (void)addSelectedItem:(NhItem *)selectedItem {
+	[selected addObject:selectedItem];
 }
 
-- (void) dealloc {
+- (void)removeAllSelectedItems {
+	[selected removeAllObjects];
+}
+
+- (void)startMenu {
+	//DLog(@"startMenu %@ %x %x", self, itemGroups, selected);
+	[itemGroups removeAllObjects];
+	[selected removeAllObjects];
+	currentItemGroup = nil;
+}
+
+- (void)dealloc {
+	//DLog(@"dealloc %@ %x %x", self, itemGroups, selected);
 	[itemGroups release];
 	[selected release];
 	[super dealloc];

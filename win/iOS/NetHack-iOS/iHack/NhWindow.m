@@ -92,7 +92,7 @@ static const int maxHistoryLineCount = 50;
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"<NhWindow %x type %d blocking %d", self, type, blocking];
+	return [NSString stringWithFormat:@"<NhWindow %x type %d block %d>", self, type, blocking];
 }
 
 - (void)print:(const char *)str {

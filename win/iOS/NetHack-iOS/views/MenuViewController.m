@@ -128,11 +128,11 @@
 - (IBAction)okButton:(id)sender {
 	// PICK_ANY
 	[self dismissModalViewControllerAnimated:NO];
-	[self.menuWindow.selected removeAllObjects];
+	[self.menuWindow removeAllSelectedItems];
 	for (NhItemGroup *group in self.menuWindow.itemGroups) {
 		for (NhItem *item in group.items) {
 			if (item.selected) {
-				[self.menuWindow.selected addObject:item];
+				[self.menuWindow addSelectedItem:item];
 			}
 		}
 	}
@@ -275,8 +275,8 @@
 		if (item.amount == item.maxAmount) { // throw doesn't allow item amounts
 			item.amount = -1;
 		}
-		[self.menuWindow.selected removeAllObjects];
-		[self.menuWindow.selected addObject:item];
+		[self.menuWindow removeAllSelectedItems];
+		[self.menuWindow addSelectedItem:item];
 		[self dismissModalViewControllerAnimated:NO];
 		[[NhEventQueue instance] addKey:1]; // one item
 	}
