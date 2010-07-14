@@ -535,7 +535,7 @@ enum rotation_lock {
 	} else {
 		TextInputController *textInputController = [[TextInputController alloc]
 													initWithNibName:@"TextInputController" bundle:nil];
-		[self presentModalViewController:textInputController animated:YES];
+		[self showModalViewController:textInputController];
 		[textInputController release];
 	}
 }
@@ -546,7 +546,7 @@ enum rotation_lock {
 	} else {
 		ExtendedCommandsController *extendedCommandsController = [[ExtendedCommandsController alloc]
 																  initWithNibName:@"ExtendedCommandsController" bundle:nil];
-		[self presentModalViewController:extendedCommandsController animated:YES];
+		[self showModalViewController:extendedCommandsController];
 		[extendedCommandsController release];
 	}
 }
@@ -818,6 +818,13 @@ enum rotation_lock {
 	} else {
 		[self presentModalViewController:vc animated:YES];
 	}
+}
+
+- (void)showModalViewController:(UIViewController *)vc {
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		vc.modalPresentationStyle = UIModalPresentationFormSheet;
+	}
+	[self presentModalViewController:vc animated:YES];
 }
 
 - (void)dismissCurrentPopover {

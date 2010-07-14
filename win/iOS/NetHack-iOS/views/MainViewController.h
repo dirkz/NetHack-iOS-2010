@@ -150,6 +150,9 @@
 // shows the given VC either as popover or modal
 - (void)showViewController:(UIViewController *)vc sender:(id)sender;
 
+// shows the given VC as modal, setting modalPresentationStyle on iPad
+- (void)showModalViewController:(UIViewController *)vc;
+
 // for use in content VCs
 - (void)dismissCurrentPopover;
 
