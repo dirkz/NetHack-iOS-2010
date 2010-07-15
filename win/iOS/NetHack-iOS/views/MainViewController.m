@@ -322,6 +322,8 @@ enum rotation_lock {
 - (void)handleDirectionQuestion:(NhYnQuestion *)q {
 	directionQuestion = YES;
 	
+	[self dismissCurrentPopover];
+	
 	NSArray *actions = [NhCommand directionCommands];
 	for (Action *action in actions) {
 		[action addTarget:self action:@selector(endDirectionQuestion) arg:nil];

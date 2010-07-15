@@ -268,7 +268,7 @@
 - (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Action *action = [actions objectAtIndex:[indexPath row]];
 	[action invoke:nil];
-	[self dismissModalViewControllerAnimated:NO];
+	[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end
