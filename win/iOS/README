@@ -1,0 +1,24 @@
+How to get the sources
+
+http://github.com/dirkz/NetHack-iOS
+http://github.com/dirkz/NetHack-iOS.git
+
+You probably already have checked it out, if not, here's how to do it:
+
+git clone http://github.com/dirkz/NetHack-iOS.git
+
+How to build
+
+cd win/iOS
+sh bootstrap
+
+Load win/iOS/NetHack-iOS/NetHack-iOS.xcodeproj with a stable
+xcode. Don't use beta / preview versions of xcode! You might have to
+change the base SDK to the latest SDK you have installed, e.g. to
+4.1. Internally, the iOS Deployment Target is set to iOS 3.0, so you
+can stay compatible to the release.
+
+If you now set your target to debug and simulator the project should
+build. Warnings can be ignored unless they are in the UI code.
+
+This worked 2010-10-05 with xcode 3.2.4 / iOS 4.1 (Dirk)
