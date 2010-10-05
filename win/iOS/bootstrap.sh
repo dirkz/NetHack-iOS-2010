@@ -21,7 +21,6 @@ cd ../src
 ../util/makedefs -p # pm.h
 ../util/makedefs -o # Onames.h, dat/options?
 ../util/makedefs -m # monstr.c
-../util/makedefs -f # filename.h
 
 cd ..
 cd dat && make spotless all
