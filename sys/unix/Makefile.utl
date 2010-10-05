@@ -89,7 +89,7 @@
 # flags for debugging:
 # CFLAGS = -g -I../include
 
-CFLAGS = -O -I../include
+CFLAGS = -arch i386 -m32 -O -I../include # iOS force compiler to 32 bits
 LFLAGS =
 
 LIBS =
