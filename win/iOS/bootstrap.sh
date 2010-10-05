@@ -16,7 +16,7 @@ sh setup.sh
 cd ../..
 
 cd util && make spotless makedefs
-cd src
+cd ../src
 ../util/makedefs -v # date.h
 ../util/makedefs -p # pm.h
 ../util/makedefs -o # Onames.h, dat/options?
