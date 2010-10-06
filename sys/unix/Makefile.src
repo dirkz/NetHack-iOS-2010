@@ -151,7 +151,8 @@ GNOMEINC=-I/usr/lib/glib/include -I/usr/lib/gnome-libs/include -I../win/gnome
 # flags for debugging:
 # CFLAGS = -g -I../include
 
-CFLAGS = -m32 -O -I../include # iOS force compiler to 32 bits
+# iOS force compiler and linker to 32 bit model
+CFLAGS = -m32 -O -I../include
 LFLAGS = -m32
 
 # The Qt and Be window systems are written in C++, while the rest of
